@@ -22,7 +22,7 @@ class Processor:
             r.db_create('lagrammer').run()
         except RqlRuntimeError:
             try:
-                r.db('lagrammer').table_create('users').run()
+                r.db('lagrammer').table_create('comments').run()
             except RqlRuntimeError:
                 print("The table aready exists")            
 #        with open('comments','r') as comments:
@@ -57,6 +57,6 @@ class Processor:
                 
                 comment_dict['analysis']=analysis
                 user_dict['comment']=comment_dict
-                r.db('lagrammer').table('users').insert(user_dict).run()
-                print(' \n\n '+str(r.db('lagrammer').table('users').filter({'name':user_name}).run()))
+                r.db('lagrammer').table('comments').insert(user_dict).run()
+                print(' \n\n '+str(r.db('lagrammer').table('comments').filter({'name':user_name}).run()))
 
