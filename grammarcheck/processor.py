@@ -3,6 +3,7 @@ import sys
 import language_check
 import rethinkdb as r
 from rethinkdb import RqlRuntimeError
+from plagiarismChecker import PlagiarismChecker
 class Processor:
 	
     def __init__(self):
@@ -27,6 +28,7 @@ class Processor:
                 print("The table aready exists")            
 #        with open('comments','r') as comments:
         comments={}
+        pc = PlagiarismChecker()
         while True:
             user_dict={}
             if True:
@@ -34,8 +36,18 @@ class Processor:
                 input_stream=sys.stdin
                 user_name=input_stream.readline()
                 user_dict['name']=user_name
+                if user_name not in pc.comments.keys():
+                    pc.add_user(user_name) 
                 print ('Enter the comment to be checked for grammar')
                 input_data=input_stream.readline()
+                if  input_data in pc.get_comments(user_name):
+                    print("The comment by the user "+user_name+ " is Plagiarised and hence will not be analyzed" )
+                    continue
+                else:
+                    print("Analyzing the comment "+input_data)
+                    pc.add_comments(user_name,[input_data])
+                    
+
                 comment_dict={}
                 comment_dict['data']=input_data
                 print('The sentence is:'+input_data)
@@ -59,4 +71,3 @@ class Processor:
                 user_dict['comment']=comment_dict
                 r.db('lagrammer').table('comments').insert(user_dict).run()
                 print(' \n\n '+str(r.db('lagrammer').table('comments').filter({'name':user_name}).run()))
-
