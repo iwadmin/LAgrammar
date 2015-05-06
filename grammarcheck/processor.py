@@ -21,7 +21,7 @@ class Processor:
 # getting only the 'new' comments.
         conn = psycopg2.connect("dbname=iwadmin user=idb password=idb")
         cur = conn.cursor()
-        cur.execute("SELECT * FROM comments ORDER BY user_id;")
+        cur.execute("SELECT * FROM comments ;")
         all_comments=cur.fetchall()
         dict_of_comments_by_users={}
         for comment in all_comments:
@@ -69,14 +69,28 @@ class Processor:
                     for user_by_item in users_by_item:
                         if comment['data'] == dict_of_items[item][user_by_item]:
                             print('plagiarised')
-                            comment_dict['plagiarised']=True
+                            comment_dict['type']='plagiarised'
                             user_dict['comment']=comment_dict
                             break
-                        if 'plagiarised' in comment_dict and comment_dict['plagiarised']==True :
-                            continue
-                    matches=tool.check(comment['data'])
+                    if 'type' in comment_dict and comment_dict['type']==plagiarised :
+                        print(json.dumps(user_dict,indent=4,sort_keys=True))
+                        continue
+                    print(str(tool._server))
+                    try:
+                        matches=tool.check(comment['data'])
+                    except :
+                        print('Some exception in checking')
+                        tool=language_check.LanguageTool('en-GB')
+                        continue
+                        pass
                     print('analyzed')
                     analysis={'rule_id':[],'str':[],'category':[],'msg':[],'spos':[],'epos':[],'suggestions':[]}
+                    if len(matches)==0:
+                        comment_dict['type']='good'
+                        user_dict['comment']=comment_dict
+                        print(json.dumps(user_dict,indent=4,sort_keys=True))      
+                        continue
+                        
                     for match in matches:
                         analysis['rule_id'].append(match.ruleId)
                         analysis['str'].append(match.__str__())
