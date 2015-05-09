@@ -5,9 +5,9 @@ import language_check
 import rethinkdb as r
 from rethinkdb import RqlRuntimeError
 from plagiarismChecker import PlagiarismChecker
-import psycopg2
+#import psycopg2
 from datetime import datetime
-
+import pycurl
 class Processor:
 	
     def __init__(self):
@@ -19,20 +19,46 @@ class Processor:
         self.pipe=pipe
 # Get the comments from the comments table. Currently all of the comments are pulled from the database. But, later on a date range is to be used for 
 # getting only the 'new' comments.
-        conn = psycopg2.connect("dbname=iwadmin user=idb password=idb")
-        cur = conn.cursor()
-        cur.execute("SELECT * FROM comments ORDER BY commentable_id;")
-        all_comments=cur.fetchall()
+#        conn = psycopg2.connect("dbname=iwadmin user=idb password=idb")
+#        cur = conn.cursor()
+#        cur.execute("SELECT * FROM comments ORDER BY commentable_id;")
+#        all_comments=cur.fetchall()
         dict_of_comments_by_users={}
-        for comment in all_comments:
-            if comment[4] not in dict_of_comments_by_users.keys():
-                dict_of_comments_by_users[comment[4]]={}
-            if comment[2] not in dict_of_comments_by_users[comment[4]].keys():
-                dict_of_comments_by_users[comment[4]][comment[2]]=[]
-
-            dict_of_comments_by_users[comment[4]][comment[2]].append({'data':comment[1],'datetime':comment[5]})
-        cur.close()
-        conn.close()
+        
+#        for comment in all_comments:
+#            if comment[4] not in dict_of_comments_by_users.keys():
+#                dict_of_comments_by_users[comment[4]]={}
+#            if comment[2] not in dict_of_comments_by_users[comment[4]].keys():
+#                dict_of_comments_by_users[comment[4]][comment[2]]=[]
+#            dict_of_comments_by_users[comment[4]][comment[2]].append({'data':comment[1],'datetime':comment[5],'commentable_type':comment[3]})
+#        cur.close()
+#        conn.close()
+        
+        page=0
+        comments_per_page=15
+        while True:
+            page+=1
+            if page > 10:
+                break
+            self.buffer = io.BytesIO()
+            c = pycurl.Curl()
+            c.setopt(c.URL, 'http://learnapt.informationworks.in/api/grammar_check/comments?per_page='+str(comments_per_page)+'&page='+str(page))
+            c.setopt(c.HTTPHEADER, ['Authorization: Token %s' % str('b2661fa415440adb2ef6eb37af6ca3e5')])
+            c.setopt(c.WRITEDATA, self.buffer)
+            c.perform()
+            c.close()
+            self.body = self.buffer.getvalue()
+            comments_details=json.loads(self.body.decode('UTF-8'))['comments']
+            for comment_details in comments_details:
+                if comment_details['content'] is None or str(comment_details['content']).strip() == '' :
+                    continue
+                if comment_details['user_id'] not in dict_of_comments_by_users.keys():
+                    dict_of_comments_by_users[comment_details['user_id']]={}
+                if comment_details['commentable_id'] not in dict_of_comments_by_users[comment_details['user_id']].keys():
+                    dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']]=[]
+                dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']].append({'data':comment_details['content'],'datetime':comment_details['created_at'],'commentable_type':comment_details['commentable_type']})
+                print(str(comment_details['created_at']))
+        #print(json.dumps(dict_of_comments_by_users,indent=4,sort_keys=True))
 
 # Creating and/or updating the lagrammer database and the comments table in rethinkdb.
         r.connect('localhost', 28015).repl()
@@ -44,8 +70,6 @@ class Processor:
                 r.db('lagrammer').table_create('comments').run()
             except RqlRuntimeError:
                 print("The table aready exists")
-
-
         users=dict_of_comments_by_users.keys()
         pc = PlagiarismChecker()
         dict_of_items={}
@@ -62,32 +86,34 @@ class Processor:
                     comment_dict={}
                     comment_dict['user_id']=user
                     comment_dict['item_id']=item
+                    comment_dict['commentable_type']=comment['commentable_type']
                     comment_dict['data']=comment['data']
                     comment_dict['datetimestamp']=str(comment['datetime'])
-                    print('The sentence is:'+comment['data'])
+                    print('The comment is:'+comment['data'])
                     users_by_item=dict_of_items[item].keys()
                     for user_by_item in users_by_item:
                         if comment['data'] in dict_of_items[item][user_by_item]:
-                            print('plagiarised')
+                            #print('plagiarised')
                             comment_dict['type']='plagiarised'
                             user_dict['comment']=comment_dict
                             break
                     if 'type' in comment_dict and comment_dict['type']=='plagiarised' :
                         dict_of_items[item][user].append(comment['data'])
+                        r.db('lagrammer').table('comments').insert(user_dict).run()
                         continue	
                     try:
                         matches=tool.check(comment['data'])
                     except :
-                        print('Some exception in checking')
+                        #print('Some exception in checking')
                         tool=language_check.LanguageTool('en-GB')
                         continue
-                    print('analyzed')
                     analysis={'rule_id':[],'category':[],'msg':[],'spos':[],'epos':[],'suggestions':[]}
                     if len(matches)==0:
                         comment_dict['type']='good'
                         user_dict['comment']=comment_dict
                         dict_of_items[item][user].append(comment['data'])
-                        print(json.dumps(user_dict,indent=4,sort_keys=True))      
+                        r.db('lagrammer').table('comments').insert(user_dict).run()                        
+                        #print(json.dumps(user_dict,indent=4,sort_keys=True))      
                         continue
                         
                     for match in matches:
@@ -102,7 +128,7 @@ class Processor:
                         #print (str(match)+' THE CORRECTION AND THE SUGGESTION')
                     comment_dict['analysis']=analysis
                     user_dict['comment']=comment_dict
-                    print(json.dumps(user_dict,indent=4,sort_keys=True))
+                    #print(json.dumps(user_dict,indent=4,sort_keys=True))
                     r.db('lagrammer').table('comments').insert(user_dict).run()
                     #print(' \n\n '+str(r.db('lagrammer').table('comments').filter({'name':user}).run()))
                     
@@ -115,7 +141,7 @@ class Processor:
 
     def analyze_comments_from_stdin(self,pipe):
         self.pipe=pipe
-        print ('Starting the Processor')
+        #print ('Starting the Processor')
         r.connect('localhost', 28015).repl()
         tool=language_check.LanguageTool('en-GB')
         try:
@@ -149,7 +175,7 @@ class Processor:
                 comment_dict={}
                 comment_dict['data']=input_data
                 comment_dict['datetimestamp']=str(datetime.now())
-                print('The sentence is:'+input_data)
+                print('The comment is:'+input_data)
                 matches=tool.check(input_data)
                 analysis={'rule_id':[],'str':[],'category':[],'msg':[],'spos':[],'epos':[],'suggestions':[]}
 
@@ -165,5 +191,24 @@ class Processor:
                 
                 comment_dict['analysis']=analysis
                 user_dict['comment']=comment_dict
-                r.db('lagrammer').table('comments').insert(user_dict).run()
-                print(' \n\n '+str(r.db('lagrammer').table('comments').filter({'name':user_name}).run()))
+                #r.db('lagrammer').table('comments').insert(user_dict).run()
+                #print(' \n\n '+str(r.db('lagrammer').table('comments').filter({'name':user_name}).run()))
+
+
+
+
+    @staticmethod
+    def get_analysis():
+        r.connect('localhost', 28015).repl()        
+#        allcomments=r.db('lagrammer').table('comments').run()
+        allcomments=r.db('lagrammer').table('comments').filter({'comment':{'type':'plagiarised'}}).run()
+#        allcomments=r.db('lagrammer').table('comments').filter({'comment':{'analysis':{'category':['Grammar']}}}).run()
+
+        i=0
+        for comment in allcomments:
+            i+=1
+            if i>100:
+                break
+            print(json.dumps(comment,indent=4,sort_keys=True))
+
+            
