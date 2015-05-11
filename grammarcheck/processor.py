@@ -5,7 +5,6 @@ import language_check
 import rethinkdb as r
 from rethinkdb import RqlRuntimeError
 from plagiarismChecker import PlagiarismChecker
-import psycopg2
 from datetime import datetime
 import pycurl
 class Processor:
