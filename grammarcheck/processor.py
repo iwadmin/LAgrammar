@@ -5,7 +5,7 @@ import language_check
 import rethinkdb as r
 from rethinkdb import RqlRuntimeError
 from plagiarismChecker import PlagiarismChecker
-#import psycopg2
+import psycopg2
 from datetime import datetime
 import pycurl
 class Processor:
@@ -141,9 +141,13 @@ class Processor:
 
     def analyze_comments_from_stdin(self,pipe):
         self.pipe=pipe
+        language_abbrv='en-GB'
+        spelling_mistake_rule_id='MORFOLOGIK_RULE_EN'
         #print ('Starting the Processor')
         r.connect('localhost', 28015).repl()
-        tool=language_check.LanguageTool('en-GB')
+        tool=language_check.LanguageTool(language_abbrv)
+        tool_for_replace_errors=language_check.LanguageTool('en-US')
+
         try:
             r.db_create('lagrammer').run()
         except RqlRuntimeError:
@@ -163,23 +167,44 @@ class Processor:
                 if user_name not in pc.comments.keys():
                     pc.add_user(user_name) 
                 print ('Enter the comment to be checked for grammar')
-                input_data=input_stream.readline()
+                input_data=input_stream.readline().strip()
                 if  input_data in pc.get_comments(user_name):
                     print("The comment by the user "+user_name+ " is Plagiarised and hence will not be analyzed" )
                     continue
                 else:
                     print("Analyzing the comment "+input_data)
                     pc.add_comments(user_name,[input_data])
-                    
-
                 comment_dict={}
                 comment_dict['data']=input_data
                 comment_dict['datetimestamp']=str(datetime.now())
                 print('The comment is:'+input_data)
-                matches=tool.check(input_data)
+                while True:
+                    try :
+                        matches=tool.check(input_data)
+                        break
+                    except:
+                        tool=language_check.LanguageTool(language_abbrv)
                 analysis={'rule_id':[],'str':[],'category':[],'msg':[],'spos':[],'epos':[],'suggestions':[]}
 
                 for match in matches:
+# This check is to ensure that words which are misspelled as per exactly one of British and American english dictionaries, and not as per the other, are not to be shown to be as if they are misspelled. Only if there is a spelling mistake as per both the dictionaries, should it consider as a spelling mistake.
+                    if match.ruleId == spelling_mistake_rule_id+'_GB':
+                        while True:
+                            try :
+                                matches_for_replace=tool_for_replace_errors.check(input_data)
+                                break
+                            except:
+                                tool_for_replace_errors=language_check.LanguageTool(language_abbrv)
+                        to_continue=True
+                        for match_for_replace in matches_for_replace:
+                            if match_for_replace.ruleId==spelling_mistake_rule_id+'_US':
+                                to_continue=False
+                                break    
+                        if to_continue==True:
+                            continue
+# The check to follow is to skip the errors for those words which highlight the differences in american and british dictionaries. This is to narrow the gap between the american and the british dictionaries. 
+                    if match.ruleId == 'EN_GB_SIMPLE_REPLACE':
+                        continue
                     analysis['rule_id'].append(match.ruleId)
                     analysis['str'].append(match.__str__())
                     analysis['category'].append(match.category)
@@ -187,12 +212,9 @@ class Processor:
                     analysis['spos'].append(match.fromx)
                     analysis['epos'].append(match.tox)
                     analysis['suggestions'].append(match.replacements)
-                    print (str(match)+' THE CORRECTION AND THE SUGGESTION')
-                
+                    print (str(match)+' THE CORRECTION AND THE SUGGESTION')                
                 comment_dict['analysis']=analysis
                 user_dict['comment']=comment_dict
-                #r.db('lagrammer').table('comments').insert(user_dict).run()
-                #print(' \n\n '+str(r.db('lagrammer').table('comments').filter({'name':user_name}).run()))
 
 
 
