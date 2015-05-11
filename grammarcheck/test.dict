@@ -1,0 +1,157 @@
+%NOUNS
+
+<CLAUSE>: {({@COd-} & C-) or ({@CO-} & (Wd- & {CC+})) or [Rn-]};
+<adj-op>: [[{@E-} & Wq- & {@MV+} & PF+ & {@MV+} & {CC+}]] or 
+({@E-} & {@MV+} & ([[{Xd-} & Xc+ & COp+]] or (Xd- & Xc+ & MX*a-))); 
+
+a an: ({(AA- & HA-) or ALa- or [[Lf+]]} & Ds+) or NN+ or NSa+;
+we: (Sp+ & <CLAUSE>) or SIp-;
+
+should: ((SI+ or SFI+) & (({Q-} & I+) or CQ-)) or
+({N+} & {@E-} & (S- or SF- or (RS- & B-)) & (I+ or (CX- & {@MV+})
+
+or [[NONE]])) or [[(SI*j+ or SFI**j+) & I+ & 
+((Xd- & CCq- & Xc+) or CCq- or ({{Xd-} & Xc+} & COp+))]];
+
+<vc-have>: ({@MV+} & TO+) or ((B- or O+) & {@MV+} & {[I*j+ or Pv+]})
+or (([[@MV+ & O*n+]] or CX- or [[NONE]]) & {@MV+}) or ({N+} & PP+);
+
+<verb-x-pl,i>: {@E-} & (Sp- or SFp- or  If- or (RS- & Bp-) or Wi-);
+
+have: ((SIp+ or SFIp+) & (({Q-} & PP+) or CQ-)) or (<verb-x-pl,i> &
+ <vc-have>);
+
+<vc-go>: {K+ or [[Pa+]] or [[Pg+]]} & {@MV+}; 
+<verb-pp>: {@E-} & PP-;
+<vc-go>: {K+ or [[Pa+]] or [[Pg+]]} & {@MV+}; 
+<noun-sub-s>: {@M+} & {R+ & Bs+ & {[[@M+]]}} & {@MXs+};
+<verb-ge-d>: ({@AN-} & {@A- & {[[@AN-]]}} & (Dmu- or [[NONE]]) & (OF+ or [[NONE]]) & <noun-sub-s> & {@MXs+} & ((Ss+ & <CLAUSE>) or SIs- or Os- or J-)) or [[AN+]];
+
+gone: <verb-pp> & <vc-go>;
+<verb-x-pg,ge>: {@E-} & (Pgf- or Mg- or ({[DP-]} & ((Ss*g+ & <CLAUSE>) or SIs*g- or [[[NONE]]])) or (Xd- & (Xc+ or [[[NONE]]]) & (MX*p- or MVg-)) 
+or [DP- & J-] or [[Wq- & PF+ & {@MV+}]] or ({Xd-} & Xc+ & COp+));
+going: ((TOf+ or ({K+ or [[Pa+]]} & {@MV+})) & <verb-x-pg,ge>) or ({@E-} & A+) or <verb-ge-d>;
+
+
+<S-CLAUSE>: {({@COd-} & C-) or ({@CO-} & (Wd- & {CC+}))}; 
+
+<prep-main-a>: [Mp-] or MVp- or [({Xc+ & {Xd-}} & CO+)] or Pp- or
+(Xd- & Xc+ & (MX*x- or MVx-)) or (Cs+ & (Mj- or (Xd- & Xc+ & MX*j-)))
+or (Wj- & Qd+) or [Wq- & PF+];
+
+to: ({@E-} & {NT-} & I+ & (TO- or [{Xd- & Xc+} & MVi-] 
+or [[R-]] or (SFsx+ & <S-CLAUSE>) or [Xc+ & {Xd-} & CO+]))
+or I*a+ or ({JQ+} & (J+ or Mgp+) & <prep-main-a>) 
+or [MVp- & B-] or NIb-;
+
+
+
+<noun-main-x>: (S+ & <CLAUSE>) or SI- or J- or O- or ({[B*j+]} & Xd- 
+& (Xc+ or [[[NONE]]]) & MX-) or [[[NONE]]];
+<noun-main-s>: (Ss+ & <CLAUSE>) or SIs- or Js- or Os- or ({[Bsj+]} & Xd-
+ & (Xc+ or [[[NONE]]]) & MX-) or [[[NONE]]];
+<noun-main-p>: (Sp+ & <CLAUSE>) or SIp- or Jp- or Op- or ({[Bpj+]} & Xd-
+ & (Xc+ or [[[NONE]]]) & MX-) or [[[NONE]]];
+<noun-main-m>: (Ss+ & <CLAUSE>) or SIs- or Jp- or Os- or ({[Bsj+]} & Xd- 
+& (Xc+ or [[[NONE]]]) & MX-) or [[[NONE]]];
+<noun-main-h>: (Ss*b+ & <CLAUSE>) or SIs*b- or Js- or Os- or ({[B*j+]} 
+& Xd- & (Xc+ or [[[NONE]]]) & MX-) or [[[NONE]]];
+
+<noun-sub-x>: {@M+} & {R+ & B+ & {[[@M+]]}} & {@MX+};
+<noun-sub-s>: {@M+} & {R+ & Bs+ & {[[@M+]]}} & {@MXs+};
+<noun-sub-p>: {@M+} & {R+ & Bp+ & {[[@M+]]}} & {@MXp+};
+the: ({AL-} & {@L+} & (D+ or DD+)) or DG+ or (TR- & U+);
+
+those: ({AL-} & (Dmc+ or DD+)) or 
+(<noun-sub-p> & <noun-main-p>);
+this.p: <noun-main-h>;
+this.d: ({AL-} & D*u+) or DTn+;
+
+<noun-sub-p>: {@M+} & {R+ & Bp+ & {[[@M+]]}} & {@MXp+};
+
+<noun-main-p>: (Sp+ & <CLAUSE>) or SIp- or Jp- or Op- or ({[Bpj+]} & Xd-
+ & (Xc+ or [[[NONE]]]) & MX-) or [[[NONE]]];
+
+houses: ({@AN-} & {@A- & {[[@AN-]]}} & (({Dmc-} & <noun-sub-p> & 
+(<noun-main-p> or Bpm+))
+or (YP+ & {Dmc-}) or (GN+ & (DD- or [NONE])) or Up-)) or [[AN+]];
+
+
+
+<vc-be>: ({@EBm+} & (((O*t+ or [B**t-] or K+ or BI+ or OF+ or PF- or 
+(Osi+ & R+ & Bs+) or (Opi+ & R+ & Bp+) or [[NONE]]) & {@MV+})
+or (Pp+ & {THi+ or @MV+}) or THb+ or TO+ or Pa+)) or 
+({N+} & (AF- or Pg*b+ or Pv+));
+<verb-x-s>: {@E-} & (Ss- or SFs- or (RS- & Bs-));
+is: ((<verb-x-s>) or 
+({Q-} & (SIs+ or SFIs+))) & <vc-be>;
+
+'s: [[<verb-x-s> & 
+(({@EBm+} & (((O*t+ or K+ or BI+ or OF+ 
+or (Osi+ & R+ & Bs+) or (Opi+ & R+ & Bp+)) & {@MV+})
+or (Pp+ & {THi+ or @MV+}) or THb+ or TO+ or Pa+)) or Pg+ or Pv+ or PP+)]];
+was: (({@E-} & (Ss- or SX- or SFs- or (RS- & Bs-))) or ({Q-} &
+(SFIs+ or SIs+ or SXI+))) & <vc-be>;
+are: (({@E-} & (Spx- or SFp- or (RS- & Bp-))) or ({Q-} & 
+(SIpx+ or SFIp+))) & <vc-be>;
+
+one: NN+ or ({EN-} & (({DD-} & Ds+) or ({{@A- & {[[@AN-]]}} & Ds-} & 
+(YS+ or (<noun-sub-s> & (<noun-main-s> or Bsm+)))))) or NSn+ or DTi+;
+
+
+would: ((SI+ or SFI+) & (({Q-} & {Vw+} & I+) or CQ-)) or
+({N+} & {@E-} & (S- or SF- or (RS- & B-)) & (({RT+} & I+) or (CX- & {@MV+}) 
+or [[NONE]]));
+
+<vc-do>: (((B- or O+ or [[@MV+ & O*n+]] or Vd+ or ({N+} & (CX- or [[NONE]]))) & {@MV+}) 
+or ({N+} & I*d+));
+
+
+they: {[[R+ & Bp+]]} & ((Sp+ & <CLAUSE>) or SIp-);
+
+
+do: ({@E-} & (Sp- or SFp- or (RS- & Bp-) or Wi-) & <vc-do>)
+or ((SIp+ or SFIp+) & (({Q-} & I*d+) or CQ-)) or 
+({@E-} & I- & ((B- or (O+ & X+) or [[@MV+ & O*n+]] or CX-) & {@MV+}));
+
+
+
+really: EA+ or EE+ or Em+ or EBm-;
+
+well: ({EE- or EF+} & (({ Xc+} & MVa-) or Qe+ or Ca+ or [E+])) or 
+[{EA- or EF+} & (Pa- or AF+)] or Yd+;
+
+
+it: J- or Ox- or ((Ss+ or SFsi+) & <CLAUSE>) or SIs- or 
+SFIsi- or OXi- or Vp-;
+
+LEFT-WALL: (Wd+ or Wq+ or Ws+ or Wj+ or Wc+ or Wi+ or Qd+) & 
+{CP+} & {Xx+} & {Xp+};       
+
+RIGHT-WALL: RW- or ({@Xca-} & Xc-);
+
+
+good :{EA- or EF+} & (({[[@Ec-]]} & {Xc+} & A+) or ((Paf- or AF+ or Ma-) & {@MV+} & {((TOt+ & B+) or THi+ or TOi+) & {LE+}}) or AA+ or [[DD- & <noun-main-p>]] or ({TOt+ & B+} & <adj-op>));
+
+story:  ({@AN-} & {@A- & {[[@AN-]]}} &  ((Ds- & <noun-sub-s> & (<noun-main-s> or Bsm+)) or (YS+ & Ds-) or (GN+ & (DD- or [NONE])) or Us-)) or AN+;
+
+".": ((Xp- or ({@Xca-} & Xc-)) & RW+) or Xi-;
+
+laugh: ({@AN-} & {@A- & {[[@AN-]]}} & 
+((Ds- & <noun-sub-s> & (<noun-main-s> or Bsm+))
+or (YS+ & Ds-) or (GN+ & (DD- or [NONE])) or Us-)) or AN+;
+
+
+<noun-main2-x>:  J- or O- or ({[B*j+]} & Xd- & (Xc+ or [[[NONE]]]) & MX-) or [[[NONE]]];
+
+will can may must could might shall: 
+((SI+ or SFI+) & (({Q-} & I+) or CQ-)) or
+({N+} & {@E-} & (S- or SF- or (RS- & B-)) & (I+ or (CX- & {@MV+})
+or [[NONE]]));
+all: ({EN-} & (E+ or Dm+ or NIc+ or 
+({@M+ or (ALx+ & Jp+) or (R+ & B+) or EL+} & 
+(<noun-main2-x> or (S**t+ & <CLAUSE>) or SI**t-)))) or DTa+;
+
+interesting : {EA- or EF+} & (({[[@Ec-]]} & {Xc+} & A+) or ((Paf- or AF+ or Ma-) & 
+{@MV+} & {(THi+ or Ci+ or TOi+) & {LE+}}) or AA+ or 
+[[DD- & <noun-main-p>]] or <adj-op>);
