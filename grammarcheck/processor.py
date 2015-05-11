@@ -17,23 +17,10 @@ class Processor:
    
     def analyze_comments_from_db(self,pipe):
         self.pipe=pipe
-# Get the comments from the comments table. Currently all of the comments are pulled from the database. But, later on a date range is to be used for 
-# getting only the 'new' comments.
-#        conn = psycopg2.connect("dbname=iwadmin user=idb password=idb")
-#        cur = conn.cursor()
-#        cur.execute("SELECT * FROM comments ORDER BY commentable_id;")
-#        all_comments=cur.fetchall()
         dict_of_comments_by_users={}
-        
-#        for comment in all_comments:
-#            if comment[4] not in dict_of_comments_by_users.keys():
-#                dict_of_comments_by_users[comment[4]]={}
-#            if comment[2] not in dict_of_comments_by_users[comment[4]].keys():
-#                dict_of_comments_by_users[comment[4]][comment[2]]=[]
-#            dict_of_comments_by_users[comment[4]][comment[2]].append({'data':comment[1],'datetime':comment[5],'commentable_type':comment[3]})
-#        cur.close()
-#        conn.close()
-        
+        language_abbrv='en-GB'
+        spelling_mistake_rule_id='MORFOLOGIK_RULE_EN'       
+        tool_for_replace_errors=language_check.LanguageTool('en-US')        
         page=0
         comments_per_page=15
         while True:
@@ -56,13 +43,11 @@ class Processor:
                     dict_of_comments_by_users[comment_details['user_id']]={}
                 if comment_details['commentable_id'] not in dict_of_comments_by_users[comment_details['user_id']].keys():
                     dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']]=[]
-                dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']].append({'data':comment_details['content'],'datetime':comment_details['created_at'],'commentable_type':comment_details['commentable_type']})
-                print(str(comment_details['created_at']))
-        #print(json.dumps(dict_of_comments_by_users,indent=4,sort_keys=True))
+                dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']].append({'data':comment_details['content'].strip(),'datetime':comment_details['created_at'],'commentable_type':comment_details['commentable_type']})
 
 # Creating and/or updating the lagrammer database and the comments table in rethinkdb.
         r.connect('localhost', 28015).repl()
-        tool=language_check.LanguageTool('en-GB')
+        tool=language_check.LanguageTool(language_abbrv)
         try:
             r.db_create('lagrammer').run()
         except RqlRuntimeError:
@@ -71,7 +56,6 @@ class Processor:
             except RqlRuntimeError:
                 print("The table aready exists")
         users=dict_of_comments_by_users.keys()
-        pc = PlagiarismChecker()
         dict_of_items={}
         for user in users:
             items=dict_of_comments_by_users[user].keys()
@@ -93,7 +77,6 @@ class Processor:
                     users_by_item=dict_of_items[item].keys()
                     for user_by_item in users_by_item:
                         if comment['data'] in dict_of_items[item][user_by_item]:
-                            #print('plagiarised')
                             comment_dict['type']='plagiarised'
                             user_dict['comment']=comment_dict
                             break
@@ -101,24 +84,43 @@ class Processor:
                         dict_of_items[item][user].append(comment['data'])
                         r.db('lagrammer').table('comments').insert(user_dict).run()
                         continue	
-                    try:
-                        matches=tool.check(comment['data'])
-                    except :
-                        #print('Some exception in checking')
-                        tool=language_check.LanguageTool('en-GB')
-                        continue
+                    while True:
+                        try:
+                            matches=tool.check(comment['data'])
+                            break
+                        except :
+                            tool=language_check.LanguageTool('en-GB')
+                            
                     analysis={'rule_id':[],'category':[],'msg':[],'spos':[],'epos':[],'suggestions':[]}
+# Special handling for comments which aren't found to be having an error
                     if len(matches)==0:
                         comment_dict['type']='good'
                         user_dict['comment']=comment_dict
                         dict_of_items[item][user].append(comment['data'])
                         r.db('lagrammer').table('comments').insert(user_dict).run()                        
-                        #print(json.dumps(user_dict,indent=4,sort_keys=True))      
                         continue
                         
                     for match in matches:
+# This check is to ensure that words which are misspelled as per exactly one of British and American english dictionaries, and not as per the other, are not to be shown to be as if they are misspelled. Only if there is a spelling mistake as per both the dictionaries, should it consider as a spelling mistake.
+                        if match.ruleId == spelling_mistake_rule_id+'_GB':
+                            while True:
+                                try :
+                                    matches_for_replace=tool_for_replace_errors.check(comment['data'])
+                                    break
+                                except:
+                                    tool_for_replace_errors=language_check.LanguageTool('en-US')        
+                            to_continue=True
+                            for match_for_replace in matches_for_replace:
+                                if match_for_replace.ruleId==spelling_mistake_rule_id+'_US':
+                                    to_continue=False
+                                    break    
+                            if to_continue==True:
+                                continue
+# The check to follow is to skip the errors for those words which highlight the differences in american and british dictionaries. This is to narrow the gap between the american and the british dictionaries. 
+                        if match.ruleId == 'EN_GB_SIMPLE_REPLACE':
+                            continue
+
                         analysis['rule_id'].append(match.ruleId)
-                        #analysis['str'].append(match.__str__())
                         analysis['category'].append(match.category)
                         analysis['msg'].append(match.msg)
                         analysis['spos'].append(match.fromx)
@@ -194,7 +196,7 @@ class Processor:
                                 matches_for_replace=tool_for_replace_errors.check(input_data)
                                 break
                             except:
-                                tool_for_replace_errors=language_check.LanguageTool(language_abbrv)
+                                tool_for_replace_errors=language_check.LanguageTool('en-US')
                         to_continue=True
                         for match_for_replace in matches_for_replace:
                             if match_for_replace.ruleId==spelling_mistake_rule_id+'_US':
@@ -232,5 +234,3 @@ class Processor:
             if i>100:
                 break
             print(json.dumps(comment,indent=4,sort_keys=True))
-
-            
