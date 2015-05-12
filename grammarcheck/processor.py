@@ -24,7 +24,7 @@ class Processor:
         comments_per_page=15
         while True:
             page+=1
-            if page > 10:
+            if page > 100:
                 break
             self.buffer = io.BytesIO()
             c = pycurl.Curl()
@@ -82,8 +82,14 @@ class Processor:
                     if 'type' in comment_dict and comment_dict['type']=='plagiarised' :
                         dict_of_items[item][user].append(comment['data'])
                         r.db('lagrammer').table('comments').insert(user_dict).run()
-                        continue	
+                        continue
+
+                    count_retries=0	
                     while True:
+                        count_retries+=1
+                        if count_retries>1:
+                            break
+
                         try:
                             matches=tool.check(comment['data'])
                             break
@@ -102,7 +108,12 @@ class Processor:
                     for match in matches:
 # This check is to ensure that words which are misspelled as per exactly one of British and American english dictionaries, and not as per the other, are not to be shown to be as if they are misspelled. Only if there is a spelling mistake as per both the dictionaries, should it consider as a spelling mistake.
                         if match.ruleId == spelling_mistake_rule_id+'_GB':
+                            count_retries=0
                             while True:
+                                count_retries+=1
+                                if count_retries>1:
+                                    break
+
                                 try :
                                     matches_for_replace=tool_for_replace_errors.check(comment['data'])
                                     break
@@ -193,7 +204,12 @@ class Processor:
                 for match in matches:
 # This check is to ensure that words which are misspelled as per exactly one of British and American english dictionaries, and not as per the other, are not to be shown to be as if they are misspelled. Only if there is a spelling mistake as per both the dictionaries, should it consider as a spelling mistake.
                     if match.ruleId == spelling_mistake_rule_id+'_GB':
+                        count_retries=0
                         while True:
+                            count_retries+=1
+                            if count_retries>1:
+                                break
+
                             try :
                                 matches_for_replace=tool_for_replace_errors.check(input_data)
                                 break
@@ -238,4 +254,3 @@ class Processor:
             print(json.dumps(comment,indent=4,sort_keys=True))
 
             
-
