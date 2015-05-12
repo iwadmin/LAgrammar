@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/cjftransform.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/commons-lang.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/commons-logging.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/hunspell-native-libs.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/ictclas4j.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/jna.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/junit.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/jwordsplitter.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/lucene-gosen-ipadic.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/segment.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/tika-core.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/languagetool-master/jetbrains-annotations.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/annotations-10.0.2.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/guava-15.0-rc1.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/commons-lang3-3.0.1.jar"/>
+	<classpathentry kind="lib" path="/home/idb/Downloads/opennlp-maxent-3.0.1.jar"/>
+	<classpathentry kind="lib" path="/home/idb/lucene-core-2.9.0.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/language-detector"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/morfologik-fsa"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/morfologik-speller"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/morfologik-stemming"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

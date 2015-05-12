@@ -220,3 +220,19 @@
 2015-05-11T16:54:33.897823961 20.462239s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
 2015-05-11T16:54:33.897828518 20.462243s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
 2015-05-11T16:54:33.897832714 20.462248s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-12T13:44:44.747964196 20.099095s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-12T13:44:44.783819136 20.134953s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-12T13:44:44.783960340 20.135091s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-12T13:44:45.142772769 20.493903s info: Automatically using cache size of 346 MB
+2015-05-12T13:44:45.143680545 20.494811s error: TCP socket creation failed for port 29015: Address already in use.
+2015-05-12T13:52:03.858802253 20.073035s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-12T13:52:03.861077805 20.075313s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-12T13:52:03.861171436 20.075404s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-12T13:52:04.159080888 20.373314s info: Automatically using cache size of 390 MB
+2015-05-12T13:52:04.160044919 20.374277s notice: Listening for intracluster connections on port 29015
+2015-05-12T13:52:04.163268390 20.377501s notice: Listening for client driver connections on port 28015
+2015-05-12T13:52:04.163382164 20.377615s notice: Listening for administrative HTTP connections on port 8080
+2015-05-12T13:52:04.163383496 20.377616s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-12T13:52:04.163385671 20.377618s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-12T13:52:04.163387556 20.377620s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-12T13:52:14.544896790 30.759130s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/a8046b1d-7d18-45be-828a-fbf21f30acae

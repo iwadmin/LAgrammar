@@ -142,11 +142,10 @@ class Processor:
 
     def analyze_comments_from_stdin(self,pipe):
         self.pipe=pipe
-        language_abbrv='en-GB'
         spelling_mistake_rule_id='MORFOLOGIK_RULE_EN'
         #print ('Starting the Processor')
         r.connect('localhost', 28015).repl()
-        tool=language_check.LanguageTool(language_abbrv)
+        tool=language_check.LanguageTool('en-GB')
         tool_for_replace_errors=language_check.LanguageTool('en-US')
 
         try:
@@ -179,12 +178,16 @@ class Processor:
                 comment_dict['data']=input_data
                 comment_dict['datetimestamp']=str(datetime.now())
                 print('The comment is:'+input_data)
+                count_retries=0
                 while True:
+                    count_retries+=1
+                    if count_retries>1:
+                        break
                     try :
                         matches=tool.check(input_data)
                         break
                     except:
-                        tool=language_check.LanguageTool(language_abbrv)
+                        tool=language_check.LanguageTool('en-GB')
                 analysis={'rule_id':[],'str':[],'category':[],'msg':[],'spos':[],'epos':[],'suggestions':[]}
 
                 for match in matches:

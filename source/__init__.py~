@@ -237,7 +237,14 @@ class LanguageTool:
 
     def check(self, text: str, srctext=None) -> [Match]:
         """Match text against enabled rules."""
+        with open('/home/idb/log1','a') as f:
+            f.write('\n22222222222\n')
+            f.flush()
         root = self._get_root(self._url, self._encode(text, srctext))
+        with open('/home/idb/log1','a') as f:
+            f.write('\nOVERRRRRRRRRRRRRRR\n')
+            f.flush()
+        
         return [Match(e.attrib) for e in root if e.tag == 'error']
 
     def _check_api(self, text: str, srctext=None) -> bytes:
@@ -297,7 +304,6 @@ class LanguageTool:
         for n in range(num_tries):
             try:
                 with urlopen(url, data, cls._TIMEOUT) as f:
-                    print(type(f.read()))
                     return ElementTree.parse(f).getroot()
             except (IOError, http.client.HTTPException) as e:
                 traceback.format_exc()
