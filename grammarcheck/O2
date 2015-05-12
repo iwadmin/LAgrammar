@@ -1,0 +1,25 @@
+4
+5
+7
+Starting the Processor
+http://127.0.0.1:8081cls_url
+ THE SERVER CMD ['/usr/bin/java', '-cp', '/usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/language_check/LanguageTool-2.2/languagetool-server.jar', 'org.languagetool.server.HTTPServer', '-p', '8081']
+BEFORE SUBPROCESS None['/usr/bin/java', '-cp', '/usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/language_check/LanguageTool-2.2/languagetool-server.jar', 'org.languagetool.server.HTTPServer', '-p', '8081']
+AFTER SUBPROCESS None['/usr/bin/java', '-cp', '/usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/language_check/LanguageTool-2.2/languagetool-server.jar', 'org.languagetool.server.HTTPServer', '-p', '8081']
+MATCH None
+MATCH <_sre.SRE_Match object; span=(67, 88), match='http://localhost:8081'>
+STARTED SERVER FOR FIRST TIME
+IN _GET_ROOThttp://127.0.0.1:8081/Languages >>> None >>> 300
+NO ERROR THERE 
+Getting the input:::::: 
+The sentence is:asd
+
+IN _GET_ROOThttp://127.0.0.1:8081 >>> b'text=asd%0A&language=en-GB' >>> 300
+NO ERROR THERE 
+'MORFOLOGIK_RULE_EN_GB' ::: IS THE RULE
+Line 1, column 1, Rule ID: MORFOLOGIK_RULE_EN_GB
+Message: Possible spelling mistake found
+Suggestion: ad; add; ads; aid; and; as; ash; ask; asp; ass; sad; as d
+asd 
+^^^ THE CORRECTION AND THE SUGGESTION
+Getting the input:::::: 
