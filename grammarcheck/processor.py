@@ -118,6 +118,24 @@ class Processor:
 # The check to follow is to skip the errors for those words which highlight the differences in american and british dictionaries. This is to narrow the gap between the american and the british dictionaries. 
                         if match.ruleId == 'EN_GB_SIMPLE_REPLACE':
                             continue
+<<<<<<< HEAD
+
+                        analysis['rule_id'].append(match.ruleId)
+                        analysis['category'].append(match.category)
+                        analysis['msg'].append(match.msg)
+                        analysis['spos'].append(match.fromx)
+                        analysis['epos'].append(match.tox)
+                        analysis['suggestions'].append(match.replacements)
+                    dict_of_items[item][user].append(comment['data'])
+                        #print (str(match)+' THE CORRECTION AND THE SUGGESTION')
+                    comment_dict['analysis']=analysis
+                    user_dict['comment']=comment_dict
+                    #print(json.dumps(user_dict,indent=4,sort_keys=True))
+                    r.db('lagrammer').table('comments').insert(user_dict).run()
+                    #print(' \n\n '+str(r.db('lagrammer').table('comments').filter({'name':user}).run()))
+                    
+=======
+>>>>>>> bad74ec4d51c587a91159c92b4c3ebe3e11b260d
 
                         analysis['rule_id'].append(match.ruleId)
                         analysis['category'].append(match.category)
@@ -135,7 +153,10 @@ class Processor:
                     
 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> bad74ec4d51c587a91159c92b4c3ebe3e11b260d
     @staticmethod
     def print_the_analysis(dictionary):
         print(json.dumps(dictionary,indent=4,sort_keys=True))
@@ -219,6 +240,7 @@ class Processor:
 
 
 
+<<<<<<< HEAD
 
     @staticmethod
     def get_analysis():
@@ -235,4 +257,19 @@ class Processor:
             print(json.dumps(comment,indent=4,sort_keys=True))
 
             
+=======
+>>>>>>> bad74ec4d51c587a91159c92b4c3ebe3e11b260d
 
+    @staticmethod
+    def get_analysis():
+        r.connect('localhost', 28015).repl()        
+#        allcomments=r.db('lagrammer').table('comments').run()
+        allcomments=r.db('lagrammer').table('comments').filter({'comment':{'type':'plagiarised'}}).run()
+#        allcomments=r.db('lagrammer').table('comments').filter({'comment':{'analysis':{'category':['Grammar']}}}).run()
+
+        i=0
+        for comment in allcomments:
+            i+=1
+            if i>100:
+                break
+            print(json.dumps(comment,indent=4,sort_keys=True))
