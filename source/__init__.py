@@ -175,7 +175,7 @@ class LanguageTool:
     _HOST = socket.gethostbyname('localhost')
     _MIN_PORT = 8081
     _MAX_PORT = 8083
-    _TIMEOUT = 5 * 60
+    _TIMEOUT = 1 * 6
 
     _port = _MIN_PORT
     _server = None
@@ -293,7 +293,7 @@ class LanguageTool:
         return root.attrib
 
     @classmethod
-    def _get_root(cls, url, data=None, num_tries=2):
+    def _get_root(cls, url, data=None, num_tries=20):
         for n in range(num_tries):
             try:
                 with urlopen(url, data, cls._TIMEOUT) as f:

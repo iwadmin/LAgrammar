@@ -175,7 +175,7 @@ class LanguageTool:
     _HOST = socket.gethostbyname('localhost')
     _MIN_PORT = 8081
     _MAX_PORT = 8083
-    _TIMEOUT = 5 * 60
+    _TIMEOUT = 1 * 6
 
     _port = _MIN_PORT
     _server = None
@@ -237,7 +237,14 @@ class LanguageTool:
 
     def check(self, text: str, srctext=None) -> [Match]:
         """Match text against enabled rules."""
+        with open('/home/idb/log1','a') as f:
+            f.write('\n22222222222\n')
+            f.flush()
         root = self._get_root(self._url, self._encode(text, srctext))
+        with open('/home/idb/log1','a') as f:
+            f.write('\nOVERRRRRRRRRRRRRRR\n')
+            f.flush()
+        
         return [Match(e.attrib) for e in root if e.tag == 'error']
 
     def _check_api(self, text: str, srctext=None) -> bytes:
@@ -293,7 +300,7 @@ class LanguageTool:
         return root.attrib
 
     @classmethod
-    def _get_root(cls, url, data=None, num_tries=2):
+    def _get_root(cls, url, data=None, num_tries=20):
         for n in range(num_tries):
             try:
                 with urlopen(url, data, cls._TIMEOUT) as f:
@@ -331,6 +338,9 @@ class LanguageTool:
             # Need to PIPE all handles: http://bugs.python.org/issue3905
             cls._server = subprocess.Popen(
                 server_cmd,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
                 universal_newlines=True,
                 startupinfo=startupinfo
             )

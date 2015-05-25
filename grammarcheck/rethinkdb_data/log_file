@@ -1,0 +1,334 @@
+2015-05-04T21:32:30.680713519 0.576079s notice: Recursively removing directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/tmp
+2015-05-04T21:32:30.710423780 0.605787s notice: Initializing directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-04T21:32:30.710586053 0.605950s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data' did not already exist or is empty.)
+2015-05-04T21:32:30.737254099 0.632620s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-04T21:32:30.741215462 0.636583s notice: Running on Linux 3.16.0-30-generic x86_64
+2015-05-04T21:32:30.741328847 0.636692s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-04T21:32:31.570499840 1.465864s info: Automatically using cache size of 863 MB
+2015-05-04T21:32:31.588368572 1.483732s notice: Listening for intracluster connections on port 29015
+2015-05-04T21:32:31.592189204 1.487553s notice: Listening for client driver connections on port 28015
+2015-05-04T21:32:31.592361993 1.487725s notice: Listening for administrative HTTP connections on port 8080
+2015-05-04T21:32:31.592369343 1.487733s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-04T21:32:31.592372620 1.487736s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-04T21:32:31.592375887 1.487739s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-05T07:19:41.440856758 0.721344s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-05T07:19:41.462981555 0.743472s notice: Running on Linux 3.16.0-30-generic x86_64
+2015-05-05T07:19:41.463119916 0.743607s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-05T07:19:41.920997041 1.201484s info: Automatically using cache size of 908 MB
+2015-05-05T07:19:41.950086129 1.230573s notice: Listening for intracluster connections on port 29015
+2015-05-05T07:19:41.960857499 1.241344s notice: Listening for client driver connections on port 28015
+2015-05-05T07:19:41.960999958 1.241487s notice: Listening for administrative HTTP connections on port 8080
+2015-05-05T07:19:41.961004312 1.241491s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-05T07:19:41.961006489 1.241493s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-05T07:19:41.961008066 1.241494s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-05T10:05:34.723374814 7908.450973s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/c8f897d9-a217-4727-9f7f-5501d0a2a2fe
+2015-05-05T13:07:07.512276825 16790.707927s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-05-05T13:07:07.512436247 16790.708086s notice: Shutting down client connections...
+2015-05-05T13:07:07.512508505 16790.708158s notice: All client connections closed.
+2015-05-05T13:07:07.512511429 16790.708161s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-05-05T13:07:07.515260738 16790.710911s notice: Storage engine shut down.
+2015-05-05T13:35:30.117693482 20.050586s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-05T13:35:30.122595902 20.055492s notice: Running on Linux 3.16.0-30-generic x86_64
+2015-05-05T13:35:30.122712331 20.055604s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-05T13:35:30.393202591 20.326094s info: Automatically using cache size of 634 MB
+2015-05-05T13:35:30.394329278 20.327221s notice: Listening for intracluster connections on port 29015
+2015-05-05T13:35:30.394861862 20.327754s notice: Listening for client driver connections on port 28015
+2015-05-05T13:35:30.394968822 20.327860s notice: Listening for administrative HTTP connections on port 8080
+2015-05-05T13:35:30.394971287 20.327863s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-05T13:35:30.394973271 20.327865s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-05T13:35:30.394974697 20.327866s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-05T13:46:15.817838205 665.750730s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/d4e8e92e-c180-4b20-a370-52c6849908cc
+2015-05-05T20:55:17.535312902 0.270377s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-05T20:55:17.563445191 0.298526s notice: Running on Linux 3.16.0-30-generic x86_64
+2015-05-05T20:55:17.563603237 0.298667s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-05T20:55:17.958813993 0.693878s info: Automatically using cache size of 914 MB
+2015-05-05T20:55:17.989480773 0.724545s notice: Listening for intracluster connections on port 29015
+2015-05-05T20:55:17.999454391 0.734518s notice: Listening for client driver connections on port 28015
+2015-05-05T20:55:17.999580725 0.734644s notice: Listening for administrative HTTP connections on port 8080
+2015-05-05T20:55:17.999586067 0.734649s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-05T20:55:17.999586643 0.734650s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-05T20:55:17.999588282 0.734652s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-07T10:56:47.283375196 0.281975s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-07T10:56:47.300123538 0.298726s notice: Running on Linux 3.16.0-36-generic x86_64
+2015-05-07T10:56:47.300264856 0.298864s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-07T10:56:47.785625322 0.784225s info: Automatically using cache size of 862 MB
+2015-05-07T10:56:47.812243201 0.810843s notice: Listening for intracluster connections on port 29015
+2015-05-07T10:56:47.842272812 0.840872s notice: Listening for client driver connections on port 28015
+2015-05-07T10:56:47.842450629 0.841049s notice: Listening for administrative HTTP connections on port 8080
+2015-05-07T10:56:47.842455176 0.841055s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-07T10:56:47.842460437 0.841060s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-07T10:56:47.842464248 0.841063s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-07T11:54:37.099612588 3470.098211s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/c23380bd-937f-48c8-8aae-657e7e3451dd
+2015-05-07T11:58:13.146092505 3686.144692s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-05-07T11:58:13.146220826 3686.144820s notice: Shutting down client connections...
+2015-05-07T11:58:13.146443722 3686.145042s notice: All client connections closed.
+2015-05-07T11:58:13.146448264 3686.145047s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-05-07T11:58:13.148414738 3686.147014s notice: Storage engine shut down.
+2015-05-07T11:58:14.687936162 0.235352s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-07T11:58:14.690654226 0.238072s notice: Running on Linux 3.16.0-36-generic x86_64
+2015-05-07T11:58:14.690755469 0.238171s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-07T11:58:14.983707811 0.531124s info: Automatically using cache size of 651 MB
+2015-05-07T11:58:14.986486647 0.533903s notice: Listening for intracluster connections on port 29015
+2015-05-07T11:58:14.987148554 0.534564s notice: Listening for client driver connections on port 28015
+2015-05-07T11:58:14.987241055 0.534657s notice: Listening for administrative HTTP connections on port 8080
+2015-05-07T11:58:14.987243864 0.534659s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-07T11:58:14.987244177 0.534660s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-07T11:58:14.987245262 0.534661s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-07T11:58:45.085163728 30.632580s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/96b19a6a-029b-47ac-9ec7-254259261033
+2015-05-07T19:47:34.378736775 0.227307s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-07T19:47:34.383103181 0.231677s notice: Running on Linux 3.16.0-36-generic x86_64
+2015-05-07T19:47:34.383268273 0.231838s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-07T19:47:34.756230735 0.604801s info: Automatically using cache size of 727 MB
+2015-05-07T19:47:34.758891449 0.607461s notice: Listening for intracluster connections on port 29015
+2015-05-07T19:47:34.760599565 0.609169s notice: Listening for client driver connections on port 28015
+2015-05-07T19:47:34.760752965 0.609323s notice: Listening for administrative HTTP connections on port 8080
+2015-05-07T19:47:34.760754195 0.609324s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-07T19:47:34.760757054 0.609326s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-07T19:47:34.760759353 0.609329s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-07T19:48:39.575498733 65.424068s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/5f5b8ba2-9c39-43a7-b8f6-87eda4c4a483
+2015-05-07T20:41:36.979520709 3242.828091s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/6f2ec4b3-e4e7-4e62-967c-442dbb45b484
+2015-05-08T10:48:52.555798154 13128.130700s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-05-08T10:48:52.556136700 13128.131039s notice: Shutting down client connections...
+2015-05-08T10:48:52.558041397 13128.132944s notice: All client connections closed.
+2015-05-08T10:48:52.558056001 13128.132958s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-05-08T10:48:52.836200306 13128.411102s notice: Storage engine shut down.
+2015-05-08T15:33:44.492004023 0.180502s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-08T15:33:44.495070206 0.183570s notice: Running on Linux 3.16.0-36-generic x86_64
+2015-05-08T15:33:44.495184061 0.183682s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-08T15:33:44.969029294 0.657527s info: Automatically using cache size of 325 MB
+2015-05-08T15:33:44.972308931 0.660807s notice: Listening for intracluster connections on port 29015
+2015-05-08T15:33:44.973505794 0.662004s notice: Listening for client driver connections on port 28015
+2015-05-08T15:33:44.973699890 0.662198s notice: Listening for administrative HTTP connections on port 8080
+2015-05-08T15:33:44.973701474 0.662199s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-08T15:33:44.973704501 0.662202s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-08T15:33:44.973706996 0.662204s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-08T16:07:03.236947358 1998.925445s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-05-08T16:07:03.237095525 1998.925593s notice: Shutting down client connections...
+2015-05-08T16:07:03.237266720 1998.925765s notice: All client connections closed.
+2015-05-08T16:07:03.237284757 1998.925782s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-05-08T16:07:03.272160436 1998.960659s notice: Storage engine shut down.
+2015-05-08T16:29:40.569782539 0.168859s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-08T16:29:40.573586320 0.172666s notice: Running on Linux 3.16.0-36-generic x86_64
+2015-05-08T16:29:40.573697641 0.172774s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-08T16:29:40.959572254 0.558649s info: Automatically using cache size of 278 MB
+2015-05-08T16:29:40.960827472 0.559904s notice: Listening for intracluster connections on port 29015
+2015-05-08T16:29:40.961989830 0.561066s notice: Listening for client driver connections on port 28015
+2015-05-08T16:29:40.962156841 0.561233s notice: Listening for administrative HTTP connections on port 8080
+2015-05-08T16:29:40.962164527 0.561240s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-08T16:29:40.962168290 0.561244s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-08T16:29:40.962172113 0.561248s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-08T21:03:57.904255943 885.479440s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-05-08T21:03:57.904430842 885.479614s notice: Shutting down client connections...
+2015-05-08T21:03:57.904832249 885.480015s notice: All client connections closed.
+2015-05-08T21:03:57.904835857 885.480019s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-05-08T21:03:57.913979765 885.489163s notice: Storage engine shut down.
+2015-05-08T21:05:22.636911337 0.720734s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-08T21:05:22.640374567 0.724200s notice: Running on Linux 3.16.0-36-generic x86_64
+2015-05-08T21:05:22.640512750 0.724335s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-08T21:05:23.341037892 1.424861s info: Automatically using cache size of 208 MB
+2015-05-08T21:05:23.342430939 1.426253s notice: Listening for intracluster connections on port 29015
+2015-05-08T21:05:23.343519532 1.427342s notice: Listening for client driver connections on port 28015
+2015-05-08T21:05:23.343704080 1.427527s notice: Listening for administrative HTTP connections on port 8080
+2015-05-08T21:05:23.343712539 1.427535s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-08T21:05:23.343720168 1.427542s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-08T21:05:23.343724139 1.427546s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-09T09:01:34.286998875 5698.459733s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-05-09T09:01:34.355354071 5698.528086s notice: Shutting down client connections...
+2015-05-09T09:01:34.393712469 5698.566444s notice: All client connections closed.
+2015-05-09T09:01:34.393730398 5698.566461s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-05-09T09:01:34.615557784 5698.788289s notice: Storage engine shut down.
+2015-05-09T14:14:11.160315936 20.218778s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-09T14:14:11.264765753 20.323231s notice: Running on Linux 3.16.0-36-generic x86_64
+2015-05-09T14:14:11.264864794 20.323327s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-09T14:14:12.118251021 21.176713s info: Automatically using cache size of 255 MB
+2015-05-09T14:14:12.123241983 21.181704s notice: Listening for intracluster connections on port 29015
+2015-05-09T14:14:12.132491759 21.190954s notice: Listening for client driver connections on port 28015
+2015-05-09T14:14:12.132611832 21.191074s notice: Listening for administrative HTTP connections on port 8080
+2015-05-09T14:14:12.132614828 21.191076s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-09T14:14:12.132616871 21.191078s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-09T14:14:12.132618635 21.191080s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-09T14:56:42.433162116 2571.491624s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-05-09T14:56:42.433289504 2571.491751s notice: Shutting down client connections...
+2015-05-09T14:56:42.433780835 2571.492243s notice: All client connections closed.
+2015-05-09T14:56:42.433783765 2571.492245s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-05-09T14:56:42.488806444 2571.547268s notice: Storage engine shut down.
+2015-05-09T14:57:03.510768169 20.043753s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-09T14:57:03.514692260 20.047680s notice: Running on Linux 3.16.0-36-generic x86_64
+2015-05-09T14:57:03.514867537 20.047852s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-09T14:57:03.799111853 20.332097s info: Automatically using cache size of 438 MB
+2015-05-09T14:57:03.800479137 20.333464s notice: Listening for intracluster connections on port 29015
+2015-05-09T14:57:03.801406976 20.334392s notice: Listening for client driver connections on port 28015
+2015-05-09T14:57:03.801525565 20.334510s notice: Listening for administrative HTTP connections on port 8080
+2015-05-09T14:57:03.801532685 20.334517s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-09T14:57:03.801533501 20.334518s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-09T14:57:03.801536554 20.334521s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-09T15:09:49.122763690 785.655748s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/ada78fd1-1989-495b-bde0-5bbbdf4e18a7
+2015-05-09T15:25:40.895828035 1737.428813s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/6034ddd5-ad33-4ac3-bf1b-ed62bbd60daa
+2015-05-09T20:14:20.202974251 0.241118s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-09T20:14:20.206672154 0.244819s notice: Running on Linux 3.16.0-36-generic x86_64
+2015-05-09T20:14:20.206799445 0.244943s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-09T20:14:20.540709172 0.578853s info: Automatically using cache size of 435 MB
+2015-05-09T20:14:20.542093777 0.580237s notice: Listening for intracluster connections on port 29015
+2015-05-09T20:14:20.543232815 0.581376s notice: Listening for client driver connections on port 28015
+2015-05-09T20:14:20.543401566 0.581545s notice: Listening for administrative HTTP connections on port 8080
+2015-05-09T20:14:20.543407451 0.581550s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-09T20:14:20.543423825 0.581567s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-09T20:14:20.543427389 0.581571s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-10T08:20:38.869328952 1.723260s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-10T08:20:38.910952698 1.764886s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-10T08:20:38.911072841 1.765003s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-10T08:20:39.482028208 2.335959s info: Automatically using cache size of 654 MB
+2015-05-10T08:20:39.511199857 2.365130s notice: Listening for intracluster connections on port 29015
+2015-05-10T08:20:39.540226764 2.394157s notice: Listening for client driver connections on port 28015
+2015-05-10T08:20:39.540344938 2.394275s notice: Listening for administrative HTTP connections on port 8080
+2015-05-10T08:20:39.540348377 2.394278s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-10T08:20:39.540350292 2.394280s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-10T08:20:39.540352022 2.394282s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-10T18:44:33.566844663 0.359711s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-10T18:44:33.626908327 0.419778s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-10T18:44:33.626995477 0.419862s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-10T18:44:34.397746129 1.190613s info: Automatically using cache size of 922 MB
+2015-05-10T18:44:34.414008318 1.206875s notice: Listening for intracluster connections on port 29015
+2015-05-10T18:44:34.444228180 1.237095s notice: Listening for client driver connections on port 28015
+2015-05-10T18:44:34.444366868 1.237233s notice: Listening for administrative HTTP connections on port 8080
+2015-05-10T18:44:34.444370547 1.237237s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-10T18:44:34.444372984 1.237239s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-10T18:44:34.444375115 1.237241s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-10T18:45:04.496444659 31.289311s warn: Problem when checking for new versions of RethinkDB: HTTP request to update.rethinkdb.com failed.
+2015-05-11T09:15:21.450137898 20.134746s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-11T09:15:21.480270597 20.164879s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-11T09:15:21.480409669 20.165015s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-11T09:15:22.017748562 20.702354s info: Automatically using cache size of 912 MB
+2015-05-11T09:15:22.046907740 20.731513s notice: Listening for intracluster connections on port 29015
+2015-05-11T09:15:22.076028045 20.760633s notice: Listening for client driver connections on port 28015
+2015-05-11T09:15:22.076176167 20.760781s notice: Listening for administrative HTTP connections on port 8080
+2015-05-11T09:15:22.076180517 20.760785s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-11T09:15:22.076182985 20.760788s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-11T09:15:22.076185314 20.760790s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-11T10:21:43.665130643 4002.349736s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/29d106e1-b9b7-455d-bda5-e89568129db5
+2015-05-11T10:55:16.624453623 6015.309058s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/2c3d7f54-2896-4332-ac86-f1a35f94d128
+2015-05-11T11:04:27.914921359 6566.599526s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/ee99b5bc-d357-415b-9744-cbd9f240cc04
+2015-05-11T11:10:15.329302751 6914.013908s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/f8216713-b730-4f12-a5f8-d40245cbac00
+2015-05-11T11:21:47.595410323 7606.280015s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/94edfec2-4fb6-4001-aeea-4515d0c6ec70
+2015-05-11T16:54:33.512176713 20.076592s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-11T16:54:33.536053052 20.100471s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-11T16:54:33.536165375 20.100580s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-11T16:54:33.895162401 20.459578s info: Automatically using cache size of 345 MB
+2015-05-11T16:54:33.896819578 20.461235s notice: Listening for intracluster connections on port 29015
+2015-05-11T16:54:33.897638531 20.462054s notice: Listening for client driver connections on port 28015
+2015-05-11T16:54:33.897814734 20.462230s notice: Listening for administrative HTTP connections on port 8080
+2015-05-11T16:54:33.897823961 20.462239s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-11T16:54:33.897828518 20.462243s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-11T16:54:33.897832714 20.462248s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-12T13:44:44.747964196 20.099095s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-12T13:44:44.783819136 20.134953s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-12T13:44:44.783960340 20.135091s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-12T13:44:45.142772769 20.493903s info: Automatically using cache size of 346 MB
+2015-05-12T13:44:45.143680545 20.494811s error: TCP socket creation failed for port 29015: Address already in use.
+2015-05-12T13:52:03.858802253 20.073035s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-12T13:52:03.861077805 20.075313s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-12T13:52:03.861171436 20.075404s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-12T13:52:04.159080888 20.373314s info: Automatically using cache size of 390 MB
+2015-05-12T13:52:04.160044919 20.374277s notice: Listening for intracluster connections on port 29015
+2015-05-12T13:52:04.163268390 20.377501s notice: Listening for client driver connections on port 28015
+2015-05-12T13:52:04.163382164 20.377615s notice: Listening for administrative HTTP connections on port 8080
+2015-05-12T13:52:04.163383496 20.377616s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-12T13:52:04.163385671 20.377618s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-12T13:52:04.163387556 20.377620s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-12T13:52:14.544896790 30.759130s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/a8046b1d-7d18-45be-828a-fbf21f30acae
+2015-05-12T14:19:25.418580373 1661.632813s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-05-12T14:19:25.418859300 1661.633092s notice: Shutting down client connections...
+2015-05-12T14:19:25.418963682 1661.633196s notice: All client connections closed.
+2015-05-12T14:19:25.418967789 1661.633200s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-05-12T14:19:25.442477562 1661.656710s notice: Storage engine shut down.
+2015-05-12T16:13:43.896835401 20.053401s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-12T16:13:43.910209334 20.066777s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-12T16:13:43.910294959 20.066860s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-12T16:13:44.267635216 20.424201s info: Automatically using cache size of 409 MB
+2015-05-12T16:13:44.268638058 20.425204s notice: Listening for intracluster connections on port 29015
+2015-05-12T16:13:44.269506527 20.426072s notice: Listening for client driver connections on port 28015
+2015-05-12T16:13:44.269664025 20.426229s notice: Listening for administrative HTTP connections on port 8080
+2015-05-12T16:13:44.269665726 20.426231s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-12T16:13:44.269669958 20.426235s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-12T16:13:44.269673418 20.426238s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-15T12:12:41.111773574 0.248943s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-15T12:12:41.143799603 0.280976s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-15T12:12:41.143970908 0.281140s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-15T12:12:41.735102159 0.872271s info: Automatically using cache size of 418 MB
+2015-05-15T12:12:41.774258436 0.911428s notice: Listening for intracluster connections on port 29015
+2015-05-15T12:12:41.832463773 0.969633s notice: Listening for client driver connections on port 28015
+2015-05-15T12:12:42.254810383 1.391979s error: Could not bind to http port: The address at localhost:8080 is reserved or already in use.
+2015-05-15T12:12:54.236562773 0.115088s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-15T12:12:54.240796441 0.119325s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-15T12:12:54.240947738 0.119473s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-15T12:12:54.531376810 0.409903s info: Automatically using cache size of 423 MB
+2015-05-15T12:12:54.532609504 0.411135s notice: Listening for intracluster connections on port 29015
+2015-05-15T12:12:54.533706582 0.412232s notice: Listening for client driver connections on port 28015
+2015-05-15T12:12:54.533834772 0.412360s notice: Listening for administrative HTTP connections on port 8080
+2015-05-15T12:12:54.533842610 0.412367s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-15T12:12:54.533845717 0.412370s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-15T12:12:54.533848240 0.412373s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-15T12:13:18.618870552 24.497396s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-05-15T12:13:18.619122277 24.497647s notice: Shutting down client connections...
+2015-05-15T12:13:18.619275387 24.497800s notice: All client connections closed.
+2015-05-15T12:13:18.619279945 24.497805s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-05-15T12:13:18.627172293 24.505698s notice: Storage engine shut down.
+2015-05-15T12:14:17.720004784 0.229853s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-15T12:14:17.724070266 0.233922s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-15T12:14:17.724219835 0.234068s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-15T12:14:17.988606494 0.498455s info: Automatically using cache size of 399 MB
+2015-05-15T12:14:17.989858880 0.499707s notice: Listening for intracluster connections on port 29015
+2015-05-15T12:14:17.990835681 0.500684s notice: Listening for client driver connections on port 28015
+2015-05-15T12:14:17.990990127 0.500838s notice: Listening for administrative HTTP connections on port 8080
+2015-05-15T12:14:17.990996341 0.500844s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-15T12:14:17.990999065 0.500847s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-15T12:14:17.991001655 0.500850s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-15T12:17:32.852980798 195.362829s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/34b60901-55b2-461d-a2d0-714878f2f26a
+2015-05-22T15:46:51.422085344 20.150150s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-22T15:46:51.466796301 20.194863s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-22T15:46:51.466944081 20.195009s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-22T15:46:52.237552624 20.965618s info: Automatically using cache size of 631 MB
+2015-05-22T15:46:52.254407464 20.982473s notice: Listening for intracluster connections on port 29015
+2015-05-22T15:46:52.278939577 21.007005s notice: Listening for client driver connections on port 28015
+2015-05-22T15:46:52.279062181 21.007127s notice: Listening for administrative HTTP connections on port 8080
+2015-05-22T15:46:52.279065511 21.007130s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-22T15:46:52.279068259 21.007133s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-22T15:46:52.279070796 21.007136s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-22T15:46:54.416979559 23.145045s notice: A newer version of the RethinkDB server is available: 2.0.2. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2015-05-22T16:57:38.634201000 4267.362266s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-05-22T16:57:38.670881175 4267.398947s notice: Shutting down client connections...
+2015-05-22T16:57:38.670985448 4267.399050s notice: All client connections closed.
+2015-05-22T16:57:38.670988085 4267.399053s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-05-22T16:57:38.748947730 4267.477013s notice: Storage engine shut down.
+2015-05-22T17:14:13.995025985 20.021294s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-22T17:14:13.998483673 20.024755s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-22T17:14:13.998624569 20.024892s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-22T17:14:14.378328338 20.404597s info: Automatically using cache size of 323 MB
+2015-05-22T17:14:14.380492112 20.406760s notice: Listening for intracluster connections on port 29015
+2015-05-22T17:14:14.381714029 20.407982s notice: Listening for client driver connections on port 28015
+2015-05-22T17:14:14.381891700 20.408160s notice: Listening for administrative HTTP connections on port 8080
+2015-05-22T17:14:14.381897474 20.408165s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-22T17:14:14.381901113 20.408169s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-22T17:14:14.381905019 20.408173s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-22T17:14:34.990596587 41.016865s warn: Problem when checking for new versions of RethinkDB: HTTP request to update.rethinkdb.com failed.
+2015-05-25T10:12:28.659594077 20.062003s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-25T10:12:28.684194866 20.086606s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-25T10:12:28.684270899 20.086680s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-25T10:12:29.081170236 20.483579s info: Automatically using cache size of 688 MB
+2015-05-25T10:12:29.120075326 20.522484s error: TCP socket creation failed for port 29015: Address already in use.
+2015-05-25T10:15:32.480270986 20.056863s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-25T10:15:32.484194647 20.060790s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-25T10:15:32.484306859 20.060899s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-25T10:15:32.770679084 20.347271s info: Automatically using cache size of 691 MB
+2015-05-25T10:15:32.771213530 20.347805s error: TCP socket creation failed for port 29015: Address already in use.
+2015-05-25T10:16:52.863834263 20.039100s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-25T10:16:52.866762277 20.042030s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-25T10:16:52.866854331 20.042120s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-25T10:16:53.148776817 20.324043s info: Automatically using cache size of 713 MB
+2015-05-25T10:16:53.149457560 20.324723s notice: Listening for intracluster connections on port 29015
+2015-05-25T10:16:53.171080632 20.346346s notice: Listening for client driver connections on port 28015
+2015-05-25T10:16:53.171144397 20.346410s notice: Listening for administrative HTTP connections on port 8084
+2015-05-25T10:16:53.171144966 20.346410s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-25T10:16:53.171145967 20.346411s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-25T10:16:53.171146933 20.346412s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-25T10:16:55.183232052 22.358498s notice: A newer version of the RethinkDB server is available: 2.0.2. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
