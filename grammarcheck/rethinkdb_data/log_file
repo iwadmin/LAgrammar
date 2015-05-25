@@ -335,3 +335,22 @@
 2015-05-25T10:16:55.183232052 22.358498s notice: A newer version of the RethinkDB server is available: 2.0.2. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
 =======
 >>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
+2015-05-25T15:28:25.164843060 20.041932s notice: Recursively removing directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/tmp
+2015-05-25T15:28:25.194196153 20.071284s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-25T15:28:25.198367593 20.075464s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-25T15:28:25.198695262 20.075784s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-25T15:28:25.424642254 20.301730s info: Automatically using cache size of 737 MB
+2015-05-25T15:28:25.425940505 20.303028s notice: Listening for intracluster connections on port 29015
+2015-05-25T15:28:25.437479407 20.314567s notice: Listening for client driver connections on port 28015
+2015-05-25T15:28:25.628517007 20.505605s error: Could not bind to http port: The address at localhost:8080 is reserved or already in use.
+2015-05-25T15:28:52.905570816 20.062200s notice: Running rethinkdb 2.0.1~0trusty (GCC 4.8.2)...
+2015-05-25T15:28:52.909021532 20.065653s notice: Running on Linux 3.16.0-37-generic x86_64
+2015-05-25T15:28:52.909147575 20.065776s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data
+2015-05-25T15:28:53.199538617 20.356167s info: Automatically using cache size of 734 MB
+2015-05-25T15:28:53.200857813 20.357486s notice: Listening for intracluster connections on port 29015
+2015-05-25T15:28:53.201897169 20.358527s notice: Listening for client driver connections on port 28015
+2015-05-25T15:28:53.202156080 20.358785s notice: Listening for administrative HTTP connections on port 8084
+2015-05-25T15:28:53.202159646 20.358788s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-05-25T15:28:53.202161577 20.358790s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-05-25T15:28:53.202163293 20.358791s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
+2015-05-25T15:28:55.334694661 22.491324s notice: A newer version of the RethinkDB server is available: 2.0.2. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.

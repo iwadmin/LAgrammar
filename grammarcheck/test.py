@@ -16,12 +16,9 @@ if len(args)>2 and args[1]=='-pipe':
 
 #ld=p.process_things('test.dict')
 #ld=p.process_things('4.0.dict')
-<<<<<<< HEAD
 
 #Processor.get_analysis()
 #p.analyze_comments_from_stdin(None)
-=======
->>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
 
 #Processor.get_analysis()
 #p.analyze_comments_from_stdin(None)

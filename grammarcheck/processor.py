@@ -7,10 +7,7 @@ from rethinkdb import RqlRuntimeError
 from plagiarismChecker import PlagiarismChecker
 from datetime import datetime
 import pycurl
-<<<<<<< HEAD
 from main import PScripts
-=======
->>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
 class Processor:
 	
     def __init__(self):
@@ -25,17 +22,11 @@ class Processor:
         spelling_mistake_rule_id='MORFOLOGIK_RULE_EN'       
         tool_for_replace_errors=language_check.LanguageTool('en-US')        
         page=0
-<<<<<<< HEAD
         comments_per_page=150
         while True:
             page+=1
             if page > 10:
-=======
-        comments_per_page=15
-        while True:
-            page+=1
-            if page > 100:
->>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
+
                 break
             self.buffer = io.BytesIO()
             c = pycurl.Curl()
@@ -53,12 +44,7 @@ class Processor:
                     dict_of_comments_by_users[comment_details['user_id']]={}
                 if comment_details['commentable_id'] not in dict_of_comments_by_users[comment_details['user_id']].keys():
                     dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']]=[]
-<<<<<<< HEAD
                 dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']].append({'id':comment_details['id'], 'data':comment_details['content'].strip(),'datetime':comment_details['created_at'],'commentable_type':comment_details['commentable_type']})
-=======
-                dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']].append({'data':comment_details['content'].strip(),'datetime':comment_details['created_at'],'commentable_type':comment_details['commentable_type']})
->>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
-
 # Creating and/or updating the lagrammer database and the comments table in rethinkdb.
         r.connect('localhost', 28015).repl()
         tool=language_check.LanguageTool(language_abbrv)
@@ -80,24 +66,17 @@ class Processor:
                     dict_of_items[item][user]=[]
                 comments=dict_of_comments_by_users[user][item]    
                 for comment in comments:
-<<<<<<< HEAD
                     plagiarism_results=PScripts.main(comment['data'],'po.txt') 
                     user_dict={}
                     comment_dict={}
                     comment_dict['user_id']=user
                     comment_dict['comment_id']=comment['id']
-=======
-                    user_dict={}
-                    comment_dict={}
-                    comment_dict['user_id']=user
->>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
                     comment_dict['item_id']=item
                     comment_dict['commentable_type']=comment['commentable_type']
                     comment_dict['data']=comment['data']
                     comment_dict['datetimestamp']=str(comment['datetime'])
                     print('The comment is:'+comment['data'])
                     users_by_item=dict_of_items[item].keys()
-<<<<<<< HEAD
                     isplagiarised=False
                     for user_by_item in users_by_item:
                         if comment['data'] in dict_of_items[item][user_by_item]:
@@ -114,14 +93,6 @@ class Processor:
 
                         
                     if 'type' in comment_dict and isplagiarised :
-=======
-                    for user_by_item in users_by_item:
-                        if comment['data'] in dict_of_items[item][user_by_item]:
-                            comment_dict['type']='plagiarised'
-                            user_dict['comment']=comment_dict
-                            break
-                    if 'type' in comment_dict and comment_dict['type']=='plagiarised' :
->>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
                         dict_of_items[item][user].append(comment['data'])
                         r.db('lagrammer').table('comments').insert(user_dict).run()
                         continue
@@ -146,12 +117,8 @@ class Processor:
                         dict_of_items[item][user].append(comment['data'])
                         r.db('lagrammer').table('comments').insert(user_dict).run()                        
                         continue
-<<<<<<< HEAD
                     else:
                         comment_dict['type']='incorrect'    
-=======
-                        
->>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
                     for match in matches:
 # This check is to ensure that words which are misspelled as per exactly one of British and American english dictionaries, and not as per the other, are not to be shown to be as if they are misspelled. Only if there is a spelling mistake as per both the dictionaries, should it consider as a spelling mistake.
                         if match.ruleId == spelling_mistake_rule_id+'_GB':
@@ -226,13 +193,9 @@ class Processor:
                     pc.add_user(user_name) 
                 print ('Enter the comment to be checked for grammar')
                 input_data=input_stream.readline().strip()
-<<<<<<< HEAD
                 print(input_data)
                 plagiarism_results=PScripts.main(input_data,'po.txt')
                 if  len(plagiarism_results.keys()) >0:
-=======
-                if  input_data in pc.get_comments(user_name):
->>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
                     print("The comment by the user "+user_name+ " is Plagiarised and hence will not be analyzed" )
                     continue
                 else:
@@ -291,7 +254,6 @@ class Processor:
 
 
 
-<<<<<<< HEAD
 
     @staticmethod
     def get_analysis():
@@ -308,9 +270,6 @@ class Processor:
             print(json.dumps(comment,indent=4,sort_keys=True))
 
             
-=======
->>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
-
     @staticmethod
     def get_analysis():
         r.connect('localhost', 28015).repl()        
@@ -326,3 +285,4 @@ class Processor:
             print(json.dumps(comment,indent=4,sort_keys=True))
 
             
+
