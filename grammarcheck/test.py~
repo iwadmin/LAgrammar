@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import sys
 
 from processor import Processor
@@ -17,6 +18,14 @@ if len(args)>1 and args[1]=='-pipe':
 #ld=p.process_things('test.dict')
 #ld=p.process_things('4.0.dict')
 
+=======
+from processor import Processor
+
+p = Processor()
+#ld=p.process_things('test.dict')
+#ld=p.process_things('4.0.dict')
+p.analyze_comments_from_db(None)
+>>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
 #Processor.get_analysis()
 #p.analyze_comments_from_stdin(None)
 

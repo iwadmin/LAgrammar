@@ -236,6 +236,7 @@
 2015-05-12T13:52:04.163385671 20.377618s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
 2015-05-12T13:52:04.163387556 20.377620s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
 2015-05-12T13:52:14.544896790 30.759130s notice: Removing file /usr/local/lib/python3.4/dist-packages/language_check-0.7.1-py3.4.egg/grammarcheck/rethinkdb_data/a8046b1d-7d18-45be-828a-fbf21f30acae
+<<<<<<< HEAD
 2015-05-12T14:19:25.418580373 1661.632813s notice: Server got SIGINT from pid 0, uid 0; shutting down...
 2015-05-12T14:19:25.418859300 1661.633092s notice: Shutting down client connections...
 2015-05-12T14:19:25.418963682 1661.633196s notice: All client connections closed.
@@ -332,3 +333,5 @@
 2015-05-25T10:16:53.171145967 20.346411s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
 2015-05-25T10:16:53.171146933 20.346412s notice: Server ready, "idb_acer_vp7" 0108ef9c-5ef1-4216-a415-b25bf0834c49
 2015-05-25T10:16:55.183232052 22.358498s notice: A newer version of the RethinkDB server is available: 2.0.2. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+=======
+>>>>>>> dcb30addb8f44bb1b5d786923de57d31f22b8bee
