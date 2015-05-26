@@ -19,10 +19,14 @@ class Processor:
         dict_of_comments_by_users={}
         language_abbrv='en-GB'
         spelling_mistake_rule_id='MORFOLOGIK_RULE_EN'       
-        with open('pypg.config','r') as config:
-            path=config.read()
-            sys.path.append(path)
-        import language_check
+        try:
+            with open('pypg.config','r') as config:
+                path=config.read()
+                sys.path.append(path)
+            import language_check
+        except :
+            print("I am sorry, but the language_check is not found, or a valid path where does the language_check package preside. ")
+            sys.exit()
 
         tool_for_replace_errors=language_check.LanguageTool('en-US')        
         page=0
@@ -49,14 +53,14 @@ class Processor:
                 if comment_details['commentable_id'] not in dict_of_comments_by_users[comment_details['user_id']].keys():
                     dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']]=[]
                 dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']].append({'id':comment_details['id'], 'data':comment_details['content'].strip(),'datetime':comment_details['created_at'],'commentable_type':comment_details['commentable_type']})
-# Creating and/or updating the lagrammer database and the comments table in rethinkdb.
+# Creating and/or updating the lagrammar database and the comments table in rethinkdb.
         r.connect('localhost', 28015).repl()
         tool=language_check.LanguageTool(language_abbrv)
         try:
-            r.db_create('lagrammer').run()
+            r.db_create('lagrammar').run()
         except RqlRuntimeError:
             try:
-                r.db('lagrammer').table_create('comments').run()
+                r.db('lagrammar').table_create('comments').run()
             except RqlRuntimeError:
                 print("The table aready exists")
         users=dict_of_comments_by_users.keys()
@@ -98,7 +102,7 @@ class Processor:
                         
                     if 'type' in comment_dict and isplagiarised :
                         dict_of_items[item][user].append(comment['data'])
-                        r.db('lagrammer').table('comments').insert(user_dict).run()
+                        r.db('lagrammar').table('analyzed_comments').insert(user_dict).run()
                         continue
 
                     count_retries=0	
@@ -119,7 +123,7 @@ class Processor:
                         comment_dict['type']='good'
                         user_dict['comment']=comment_dict
                         dict_of_items[item][user].append(comment['data'])
-                        r.db('lagrammer').table('comments').insert(user_dict).run()                        
+                        r.db('lagrammar').table('analyzed_comments').insert(user_dict).run()                        
                         continue
                     else:
                         comment_dict['type']='incorrect'    
@@ -159,8 +163,8 @@ class Processor:
                     comment_dict['analysis']=analysis
                     user_dict['comment']=comment_dict
                     #print(json.dumps(user_dict,indent=4,sort_keys=True))
-                    r.db('lagrammer').table('comments').insert(user_dict).run()
-                    #print(' \n\n '+str(r.db('lagrammer').table('comments').filter({'name':user}).run()))
+                    r.db('lagrammar').table('analyzed_comments').insert(user_dict).run()
+                    #print(' \n\n '+str(r.db('lagrammar').table('comments').filter({'name':user}).run()))
                     
 
 
@@ -180,15 +184,16 @@ class Processor:
                 sys.path.append(path)
             import language_check
         except FileNotFoundError:
-            print("I am sorry, but the language_check ")
+            print("I am sorry, but the language_check is not found, or a valid path where does the language_check package preside. ")
+            sys.exit()
         tool=language_check.LanguageTool('en-GB')
         tool_for_replace_errors=language_check.LanguageTool('en-US')
 
         try:
-            r.db_create('lagrammer').run()
+            r.db_create('lagrammar').run()
         except RqlRuntimeError:
             try:
-                r.db('lagrammer').table_create('comments').run()
+                r.db('lagrammar').table_create('comments').run()
             except RqlRuntimeError:
                 print("The table aready exists")
         comments={}
@@ -198,25 +203,29 @@ class Processor:
             if True:
                 print ('Enter the user name:')
                 input_stream=sys.stdin
-                user_name=input_stream.readline()
+                user_name=input_stream.readline().strip()
                 user_dict['name']=user_name
                 if user_name not in pc.comments.keys():
                     pc.add_user(user_name) 
                 print ('Enter the comment to be checked for grammar')
                 input_data=input_stream.readline().strip()
-                print(input_data)
-                plagiarism_results=PScripts.main(input_data,'po.txt')
-                if  len(plagiarism_results.keys()) >0:
-                    print("The comment by the user "+user_name+ " is Plagiarised and hence will not be analyzed" )
-                    continue
-                else:
-                    print("Analyzing the comment "+input_data)
-                    pc.add_comments(user_name,[input_data])
+                print(input_data)                
                 comment_dict={}
                 comment_dict['data']=input_data
                 comment_dict['datetimestamp']=str(datetime.now())
                 print('The comment is:'+input_data)
+                plagiarism_results=PScripts.main(input_data,'po.txt')
+                if  len(plagiarism_results.keys()) >0:
+                    print("The comment by the user "+user_name+ " is Plagiarised and hence will not be analyzed" )
+                    comment_dict['type']='plagiarised'
+                    user_dict['comment']=comment_dict
+                    r.db('lagrammar').table('analyzed_comments').insert(user_dict).run()
+                    continue
+                else:
+                    print("Analyzing the comment "+input_data)
+                    pc.add_comments(user_name,[input_data])
                 count_retries=0
+                matches=[]
                 while True:
                     count_retries+=1
                     if count_retries>1:
@@ -262,16 +271,16 @@ class Processor:
                     print (str(match)+' THE CORRECTION AND THE SUGGESTION')                
                 comment_dict['analysis']=analysis
                 user_dict['comment']=comment_dict
-
+                r.db('lagrammar').table('analyzed_comments').insert(user_dict).run()
 
 
 
     @staticmethod
     def get_analysis():
         r.connect('localhost', 28015).repl()        
-#        allcomments=r.db('lagrammer').table('comments').run()
-        allcomments=r.db('lagrammer').table('comments').filter({'comment':{'type':'plagiarised'}}).run()
-#        allcomments=r.db('lagrammer').table('comments').filter({'comment':{'analysis':{'category':['Grammar']}}}).run()
+#        allcomments=r.db('lagrammar').table('comments').run()
+        allcomments=r.db('lagrammar').table('analyzed_comments').filter({'comment':{'type':'plagiarised'}}).run()
+#        allcomments=r.db('lagrammar').table('comments').filter({'comment':{'analysis':{'category':['Grammar']}}}).run()
 
         i=0
         for comment in allcomments:
@@ -284,9 +293,9 @@ class Processor:
     @staticmethod
     def get_analysis():
         r.connect('localhost', 28015).repl()        
-#        allcomments=r.db('lagrammer').table('comments').run()
-        allcomments=r.db('lagrammer').table('comments').filter({'comment':{'type':'plagiarised'}}).run()
-#        allcomments=r.db('lagrammer').table('comments').filter({'comment':{'analysis':{'category':['Grammar']}}}).run()
+#        allcomments=r.db('lagrammar').table('comments').run()
+        allcomments=r.db('lagrammar').table('analyzed_comments').filter({'comment':{'type':'plagiarised'}}).run()
+#        allcomments=r.db('lagrammar').table('comments').filter({'comment':{'analysis':{'category':['Grammar']}}}).run()
 
         i=0
         for comment in allcomments:
@@ -296,4 +305,3 @@ class Processor:
             print(json.dumps(comment,indent=4,sort_keys=True))
 
             
-
