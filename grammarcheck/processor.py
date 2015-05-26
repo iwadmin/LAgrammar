@@ -1,7 +1,6 @@
 import json
 import io
 import sys
-import language_check
 import rethinkdb as r
 from rethinkdb import RqlRuntimeError
 from plagiarismChecker import PlagiarismChecker
@@ -20,6 +19,11 @@ class Processor:
         dict_of_comments_by_users={}
         language_abbrv='en-GB'
         spelling_mistake_rule_id='MORFOLOGIK_RULE_EN'       
+        with open('pypg.config','r') as config:
+            path=config.read()
+            sys.path.append(path)
+        import language_check
+
         tool_for_replace_errors=language_check.LanguageTool('en-US')        
         page=0
         comments_per_page=150
@@ -170,6 +174,13 @@ class Processor:
         spelling_mistake_rule_id='MORFOLOGIK_RULE_EN'
         #print ('Starting the Processor')
         r.connect('localhost', 28015).repl()
+        try:
+            with open('pypg.config','r') as config:
+                path=config.read()
+                sys.path.append(path)
+            import language_check
+        except FileNotFoundError:
+            print("I am sorry, but the language_check ")
         tool=language_check.LanguageTool('en-GB')
         tool_for_replace_errors=language_check.LanguageTool('en-US')
 
