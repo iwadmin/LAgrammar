@@ -60,7 +60,7 @@ class Processor:
             r.db_create('lagrammar').run()
         except RqlRuntimeError:
             try:
-                r.db('lagrammar').table_create('comments').run()
+                r.db('lagrammar').table_create('analyzed_comments').run()
             except RqlRuntimeError:
                 print("The table aready exists")
         users=dict_of_comments_by_users.keys()
@@ -74,7 +74,6 @@ class Processor:
                     dict_of_items[item][user]=[]
                 comments=dict_of_comments_by_users[user][item]    
                 for comment in comments:
-                    plagiarism_results=PScripts.main(comment['data'],'po.txt') 
                     user_dict={}
                     comment_dict={}
                     comment_dict['user_id']=user
@@ -90,19 +89,19 @@ class Processor:
                         if comment['data'] in dict_of_items[item][user_by_item]:
                             isplagiarised=True
                             comment_dict['type']='plagiarised'
-                            user_dict['comment']=comment_dict
                             break
                     #Check for plagiarism against the sources from the internet.
-                    if len(plagiarism_results.keys())>0:
-                        isplagiarised=True
-                        comment_dict['type']='plagiarised'
-                        user_dict['comment']=comment_dict
-                        comment_dict['plagiarised_dict']=plagiarism_results
-
-                        
+                    try :
+                        plagiarism_results=PScripts.main(comment['data'],'po.txt') 
+                        if len(plagiarism_results.keys())>0:
+                            isplagiarised=True
+                            comment_dict['type']='plagiarised'
+                            comment_dict['plagiarised_dict']=plagiarism_results
+                    except:
+                        print("Plagiarism chck failed.")                        
                     if 'type' in comment_dict and isplagiarised :
                         dict_of_items[item][user].append(comment['data'])
-                        r.db('lagrammar').table('analyzed_comments').insert(user_dict).run()
+                        r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()
                         continue
 
                     count_retries=0	
@@ -121,9 +120,8 @@ class Processor:
 # Special handling for comments which aren't found to be having an error
                     if len(matches)==0:
                         comment_dict['type']='good'
-                        user_dict['comment']=comment_dict
                         dict_of_items[item][user].append(comment['data'])
-                        r.db('lagrammar').table('analyzed_comments').insert(user_dict).run()                        
+                        r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()                        
                         continue
                     else:
                         comment_dict['type']='incorrect'    
@@ -161,9 +159,8 @@ class Processor:
                     dict_of_items[item][user].append(comment['data'])
                         #print (str(match)+' THE CORRECTION AND THE SUGGESTION')
                     comment_dict['analysis']=analysis
-                    user_dict['comment']=comment_dict
                     #print(json.dumps(user_dict,indent=4,sort_keys=True))
-                    r.db('lagrammar').table('analyzed_comments').insert(user_dict).run()
+                    r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()
                     #print(' \n\n '+str(r.db('lagrammar').table('comments').filter({'name':user}).run()))
                     
 
@@ -193,37 +190,40 @@ class Processor:
             r.db_create('lagrammar').run()
         except RqlRuntimeError:
             try:
-                r.db('lagrammar').table_create('comments').run()
+                r.db('lagrammar').table_create('analyzed_comments').run()
             except RqlRuntimeError:
                 print("The table aready exists")
         comments={}
         pc = PlagiarismChecker()
         while True:
             user_dict={}
+            comment_dict={}
             if True:
                 print ('Enter the user name:')
                 input_stream=sys.stdin
                 user_name=input_stream.readline().strip()
-                user_dict['name']=user_name
+                comment_dict['name']=user_name
                 if user_name not in pc.comments.keys():
                     pc.add_user(user_name) 
                 print ('Enter the comment to be checked for grammar')
                 input_data=input_stream.readline().strip()
                 print(input_data)                
-                comment_dict={}
+                
                 comment_dict['data']=input_data
                 comment_dict['datetimestamp']=str(datetime.now())
                 print('The comment is:'+input_data)
-                plagiarism_results=PScripts.main(input_data,'po.txt')
-                if  len(plagiarism_results.keys()) >0:
-                    print("The comment by the user "+user_name+ " is Plagiarised and hence will not be analyzed" )
-                    comment_dict['type']='plagiarised'
-                    user_dict['comment']=comment_dict
-                    r.db('lagrammar').table('analyzed_comments').insert(user_dict).run()
-                    continue
-                else:
-                    print("Analyzing the comment "+input_data)
-                    pc.add_comments(user_name,[input_data])
+                try:
+                    plagiarism_results=PScripts.main(input_data,'po.txt')
+                    if  len(plagiarism_results.keys()) >0:
+                        print("The comment by the user "+user_name+ " is Plagiarised and hence will not be analyzed" )
+                        comment_dict['type']='plagiarised'
+                        comment_dict['plagiarised_dict']=plagiarism_results
+                        r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()
+                        continue
+                except:
+                    print("Plagiarism check failed")
+                print("Analyzing the comment "+input_data)
+                pc.add_comments(user_name,[input_data])
                 count_retries=0
                 matches=[]
                 while True:
@@ -270,8 +270,7 @@ class Processor:
                     analysis['suggestions'].append(match.replacements)
                     print (str(match)+' THE CORRECTION AND THE SUGGESTION')                
                 comment_dict['analysis']=analysis
-                user_dict['comment']=comment_dict
-                r.db('lagrammar').table('analyzed_comments').insert(user_dict).run()
+                r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()
 
 
 
