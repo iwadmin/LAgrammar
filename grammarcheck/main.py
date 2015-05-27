@@ -31,7 +31,6 @@ class PScripts:
         for sentence in sentenceList:
                 x = re.compile(r'\W+', re.UNICODE).split(sentence)
                 x = [ele for ele in x if ele != '']
-                print(str(x)+'>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
                 sentencesplits.append(x)
         finalq = []
         for sentence in sentencesplits:
@@ -42,7 +41,6 @@ class PScripts:
                 index = 0
                 for i in range(0,l):
                         finalq.append(sentence[index:index+n])
-                        print(str(sentence[index:index+n])+'>>>>>>>>>>>')
                         index = index + n-1
                 if index !=len(sentence):
 
@@ -64,7 +62,6 @@ class PScripts:
         #using googleapis for searching web
         base_url = 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q='
         url = base_url + '%22' + query + '%22'
-        print(url)
         request = urllib.request.Request(url,None,{'Referer':'Google Chrome'})
         response = urllib.request.urlopen(request)
         reader = codecs.getreader("utf-8")
@@ -99,7 +96,6 @@ class PScripts:
                 sys.exit()
         t=comment
         queries = PScripts.getQueries(comment,n)
-        print(str(queries)+"queries")
         q = [' '.join(d) for d in queries]
         found = []
         #using 2 dictionaries: c and output
@@ -133,4 +129,3 @@ class PScripts:
                 #writing the error to stdout for better error detection
                 error = traceback.format_exc()
                 print ("\nUh Oh!\n"+"Plagiarism-Checker encountered an error!:\n"+error)
-
