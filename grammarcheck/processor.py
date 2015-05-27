@@ -82,6 +82,12 @@ class Processor:
                     comment_dict['commentable_type']=comment['commentable_type']
                     comment_dict['data']=comment['data']
                     comment_dict['datetimestamp']=str(comment['datetime'])
+                    comment_dict['rule_id']=[]
+                    comment_dict['category']=[]
+                    comment_dict['msg']=[]
+                    comment_dict['spos']=[]
+                    comment_dict['epos']=[]
+                    comment_dict['suggestions']=[]
                     print('The comment is:'+comment['data'])
                     users_by_item=dict_of_items[item].keys()
                     isplagiarised=False
@@ -116,7 +122,7 @@ class Processor:
                         except :
                             tool=language_check.LanguageTool('en-GB')
                             
-                    analysis={'rule_id':[],'category':[],'msg':[],'spos':[],'epos':[],'suggestions':[]}
+                    #analysis={'rule_id':[],'category':[],'msg':[],'spos':[],'epos':[],'suggestions':[]}
 # Special handling for comments which aren't found to be having an error
                     if len(matches)==0:
                         comment_dict['type']='good'
@@ -150,15 +156,14 @@ class Processor:
                         if match.ruleId == 'EN_GB_SIMPLE_REPLACE':
                             continue
 
-                        analysis['rule_id'].append(match.ruleId)
-                        analysis['category'].append(match.category)
-                        analysis['msg'].append(match.msg)
-                        analysis['spos'].append(match.fromx)
-                        analysis['epos'].append(match.tox)
-                        analysis['suggestions'].append(match.replacements)
+                        comment_dict['rule_id'].append(match.ruleId)
+                        comment_dict['category'].append(match.category)
+                        comment_dict['msg'].append(match.msg)
+                        comment_dict['spos'].append(match.fromx)
+                        comment_dict['epos'].append(match.tox)
+                        comment_dict['suggestions'].append(match.replacements)
                     dict_of_items[item][user].append(comment['data'])
                         #print (str(match)+' THE CORRECTION AND THE SUGGESTION')
-                    comment_dict['analysis']=analysis
                     #print(json.dumps(user_dict,indent=4,sort_keys=True))
                     r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()
                     #print(' \n\n '+str(r.db('lagrammar').table('comments').filter({'name':user}).run()))
@@ -198,6 +203,13 @@ class Processor:
         while True:
             user_dict={}
             comment_dict={}
+            comment_dict['rule_id']=[]
+            comment_dict['category']=[]
+            comment_dict['msg']=[]
+            comment_dict['spos']=[]
+            comment_dict['epos']=[]
+            comment_dict['suggestions']=[]
+
             if True:
                 print ('Enter the user name:')
                 input_stream=sys.stdin
@@ -235,7 +247,7 @@ class Processor:
                         break
                     except:
                         tool=language_check.LanguageTool('en-GB')
-                analysis={'rule_id':[],'str':[],'category':[],'msg':[],'spos':[],'epos':[],'suggestions':[]}
+                #analysis={'rule_id':[],'str':[],'category':[],'msg':[],'spos':[],'epos':[],'suggestions':[]}
 
                 for match in matches:
 # This check is to ensure that words which are misspelled as per exactly one of British and American english dictionaries, and not as per the other, are not to be shown to be as if they are misspelled. Only if there is a spelling mistake as per both the dictionaries, should it consider as a spelling mistake.
@@ -261,15 +273,14 @@ class Processor:
 # The check to follow is to skip the errors for those words which highlight the differences in american and british dictionaries. This is to narrow the gap between the american and the british dictionaries. 
                     if match.ruleId == 'EN_GB_SIMPLE_REPLACE':
                         continue
-                    analysis['rule_id'].append(match.ruleId)
-                    analysis['str'].append(match.__str__())
-                    analysis['category'].append(match.category)
-                    analysis['msg'].append(match.msg)
-                    analysis['spos'].append(match.fromx)
-                    analysis['epos'].append(match.tox)
-                    analysis['suggestions'].append(match.replacements)
+                    comment_dict['rule_id'].append(match.ruleId)
+                    comment_dict['str'].append(match.__str__())
+                    comment_dict['category'].append(match.category)
+                    comment_dict['msg'].append(match.msg)
+                    comment_dict['spos'].append(match.fromx)
+                    comment_dict['epos'].append(match.tox)
+                    comment_dict['suggestions'].append(match.replacements)
                     print (str(match)+' THE CORRECTION AND THE SUGGESTION')                
-                comment_dict['analysis']=analysis
                 r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()
 
 
