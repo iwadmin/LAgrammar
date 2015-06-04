@@ -129,3 +129,4 @@ class PScripts:
                 #writing the error to stdout for better error detection
                 error = traceback.format_exc()
                 print ("\nUh Oh!\n"+"Plagiarism-Checker encountered an error!:\n"+error)
+

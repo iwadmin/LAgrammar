@@ -10,31 +10,33 @@ from main import PScripts
 class Processor:
 	
     def __init__(self):
-        simple_dictionary=[]
-        self.macros={}
-		
+        pass
    
     def analyze_comments_from_db(self,pipe):
-        self.pipe=pipe
+#####################Delete the following patch once all of the comments are received and processed.#####################
+        comments_patch=open('comments_patch','w')
+        #comments_patch=open('comments_patch','r')
+########################################################################################################################
         dict_of_comments_by_users={}
-        language_abbrv='en-GB'
         spelling_mistake_rule_id='MORFOLOGIK_RULE_EN'       
         try:
             with open('pypg.config','r') as config:
                 path=config.read()
                 sys.path.append(path)
             import language_check
+            from gibberish_detector import gib_detect_train
+            from gibberish_detector import gib_detect
+            gib_detect_train.train()
         except :
             print("I am sorry, but the language_check is not found, or a valid path where does the language_check package preside. ")
             sys.exit()
 
         tool_for_replace_errors=language_check.LanguageTool('en-US')        
         page=0
-        comments_per_page=150
+        comments_per_page=50
         while True:
             page+=1
-            if page > 10:
-
+            if(page==2):
                 break
             self.buffer = io.BytesIO()
             c = pycurl.Curl()
@@ -45,7 +47,12 @@ class Processor:
             c.close()
             self.body = self.buffer.getvalue()
             comments_details=json.loads(self.body.decode('UTF-8'))['comments']
+            print("Got "+str(comments_per_page) + " comments for the page "+str(page) )
+            if(len(comments_details)==0):
+                break
             for comment_details in comments_details:
+                if 'Great movie!' ==  comment_details['content']:
+                    print(page)
                 if comment_details['content'] is None or str(comment_details['content']).strip() == '' :
                     continue
                 if comment_details['user_id'] not in dict_of_comments_by_users.keys():
@@ -53,9 +60,13 @@ class Processor:
                 if comment_details['commentable_id'] not in dict_of_comments_by_users[comment_details['user_id']].keys():
                     dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']]=[]
                 dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']].append({'id':comment_details['id'], 'data':comment_details['content'].strip(),'datetime':comment_details['created_at'],'commentable_type':comment_details['commentable_type']})
+            comments_patch.write(self.body.decode('UTF-8'))
+        comments_patch.flush()
+        comments_patch.close()
+#        dict_of_comments_by_users={1:{1:[{'id':'1','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30', 'commentable_type':'Item'},{'id':'2','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30','commentable_type':'Item'}, {'id':'3','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30','commentable_type':'Item'}]},2:{2:[{'id':'1','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30', 'commentable_type':'Item'}]}}
 # Creating and/or updating the lagrammar database and the comments table in rethinkdb.
         r.connect('localhost', 28015).repl()
-        tool=language_check.LanguageTool(language_abbrv)
+        tool=language_check.LanguageTool('en-GB')
         try:
             r.db_create('lagrammar').run()
         except RqlRuntimeError:
@@ -74,7 +85,7 @@ class Processor:
                     dict_of_items[item][user]=[]
                 comments=dict_of_comments_by_users[user][item]    
                 for comment in comments:
-                    user_dict={}
+                    type_of_comment=None
                     comment_dict={}
                     comment_dict['user_id']=user
                     comment_dict['comment_id']=comment['id']
@@ -89,33 +100,43 @@ class Processor:
                     comment_dict['epos']=[]
                     comment_dict['suggestions']=[]
                     print('The comment is:'+comment['data'])
-                    users_by_item=dict_of_items[item].keys()
-                    isplagiarised=False
-                    for user_by_item in users_by_item:
-                        if comment['data'] in dict_of_items[item][user_by_item]:
-                            isplagiarised=True
-                            comment_dict['type']='plagiarised'
-                            break
-                    #Check for plagiarism against the sources from the internet.
-                    try :
-                        plagiarism_results=PScripts.main(comment['data'],'po.txt') 
-                        if len(plagiarism_results.keys())>0:
-                            isplagiarised=True
-                            comment_dict['type']='plagiarised'
-                            comment_dict['plagiarised_dict']=plagiarism_results
-                    except:
-                        print("Plagiarism chck failed.")                        
-                    if 'type' in comment_dict and isplagiarised :
-                        dict_of_items[item][user].append(comment['data'])
-                        r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()
-                        continue
 
+                    # Next we check whether the comment is gibberish.
+                    gib_detect_tokens=[]
+                    gib_detect_results=gib_detect.check(comment['data'])
+                    if gib_detect_results is not None:
+                        type_of_comment='gibberish'
+                        print('The comment is '+comment['data'] +' a gibberish one.')
+                        for result in gib_detect_results:
+                            gib_detect_tokens.append(result['token'])
+
+                    # Next we check for the comment to be either copied, repeated or plagiarized if the comment is not a gibberish one.
+                    if(type_of_comment != 'gibberish'):            
+                        users_by_item=dict_of_items[item].keys()
+                        for user_by_item in users_by_item:
+                            if comment['data'] in dict_of_items[item][user_by_item]:
+                                if user!=user_by_item:
+                                    comment_dict['type']='copied'
+                                    comment_dict['copied_from_user']=user_by_item
+                                    type_of_comment='copied'
+                                else:
+                                    comment_dict['type']='repetition'
+                                    type_of_comment='repetition'
+                                break
+                        if type_of_comment!='copied' and type_of_comment!='repetition':
+                            try:#Check for plagiarism against the sources from the internet.
+                                plagiarism_results=PScripts.main(comment['data'],'po.txt') 
+                                if len(plagiarism_results.keys())>0:
+                                    type_of_comment='plagiarised'
+                                    comment_dict['type']='plagiarised'
+                                    comment_dict['plagiarised_dict']=plagiarism_results
+                            except:
+                                print("Plagiarism check failed.")
+                        
+                                            
                     count_retries=0	
-                    while True:
+                    while count_retries<2:
                         count_retries+=1
-                        if count_retries>1:
-                            break
-
                         try:
                             matches=tool.check(comment['data'])
                             break
@@ -130,16 +151,17 @@ class Processor:
                         r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()                        
                         continue
                     else:
-                        comment_dict['type']='incorrect'    
+                        if type_of_comment is not None:
+                            comment_dict['type']=type_of_comment
+                        else:
+                            comment_dict['type']='incorrect'
                     for match in matches:
 # This check is to ensure that words which are misspelled as per exactly one of British and American english dictionaries, and not as per the other, are not to be shown to be as if they are misspelled. Only if there is a spelling mistake as per both the dictionaries, should it consider as a spelling mistake.
+                        token_with_error=comment['data'][match.fromx:match.tox+1]
                         if match.ruleId == spelling_mistake_rule_id+'_GB':
                             count_retries=0
-                            while True:
+                            while count_retries<2:
                                 count_retries+=1
-                                if count_retries>1:
-                                    break
-
                                 try :
                                     matches_for_replace=tool_for_replace_errors.check(comment['data'])
                                     break
@@ -148,8 +170,11 @@ class Processor:
                             to_continue=True
                             for match_for_replace in matches_for_replace:
                                 if match_for_replace.ruleId==spelling_mistake_rule_id+'_US':
+                                    if token_with_error in gib_detect_tokens:
+                                        comment['type']='gibberish'
+                                        comment['gibberish_details']=gib_detect_results
                                     to_continue=False
-                                    break    
+                                    break
                             if to_continue==True:
                                 continue
 # The check to follow is to skip the errors for those words which highlight the differences in american and british dictionaries. This is to narrow the gap between the american and the british dictionaries. 
@@ -163,10 +188,7 @@ class Processor:
                         comment_dict['epos'].append(match.tox)
                         comment_dict['suggestions'].append(match.replacements)
                     dict_of_items[item][user].append(comment['data'])
-                        #print (str(match)+' THE CORRECTION AND THE SUGGESTION')
-                    #print(json.dumps(user_dict,indent=4,sort_keys=True))
                     r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()
-                    #print(' \n\n '+str(r.db('lagrammar').table('comments').filter({'name':user}).run()))
                     
 
 
@@ -313,5 +335,3 @@ class Processor:
             if i>100:
                 break
             print(json.dumps(comment,indent=4,sort_keys=True))
-
-            
