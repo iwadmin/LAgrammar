@@ -1,0 +1,25 @@
+2015-06-02T17:19:42.257739561 20.064383s notice: Recursively removing directory /usr/local/lib/python3.4/dist-packages/gibberish_detector/rethinkdb_data/tmp
+2015-06-02T17:19:42.285890963 20.092533s notice: Initializing directory /usr/local/lib/python3.4/dist-packages/gibberish_detector/rethinkdb_data
+2015-06-02T17:19:42.286041995 20.092684s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/usr/local/lib/python3.4/dist-packages/gibberish_detector/rethinkdb_data' did not already exist or is empty.)
+2015-06-02T17:19:42.286085737 20.092728s notice: Running rethinkdb 2.0.2~0trusty (GCC 4.8.2)...
+2015-06-02T17:19:42.290048655 20.096693s notice: Running on Linux 3.16.0-38-generic x86_64
+2015-06-02T17:19:42.290217260 20.096859s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/gibberish_detector/rethinkdb_data
+2015-06-02T17:19:43.071029263 20.877672s info: Automatically using cache size of 476 MB
+2015-06-02T17:19:43.076984124 20.883626s notice: Listening for intracluster connections on port 29015
+2015-06-02T17:19:43.101790929 20.908433s notice: Listening for client driver connections on port 28015
+2015-06-02T17:19:43.170444685 20.977087s error: Could not bind to http port: The address at localhost:8080 is reserved or already in use.
+2015-06-02T17:20:51.048996913 20.087825s notice: Running rethinkdb 2.0.2~0trusty (GCC 4.8.2)...
+2015-06-02T17:20:51.053114446 20.091945s notice: Running on Linux 3.16.0-38-generic x86_64
+2015-06-02T17:20:51.053261140 20.092088s notice: Loading data from directory /usr/local/lib/python3.4/dist-packages/gibberish_detector/rethinkdb_data
+2015-06-02T17:20:51.325870291 20.364697s info: Automatically using cache size of 474 MB
+2015-06-02T17:20:51.327201592 20.366029s notice: Listening for intracluster connections on port 29015
+2015-06-02T17:20:51.328723131 20.367550s notice: Listening for client driver connections on port 28015
+2015-06-02T17:20:51.328893968 20.367721s notice: Listening for administrative HTTP connections on port 8084
+2015-06-02T17:20:51.328897296 20.367724s notice: Listening on addresses: 127.0.0.1, 127.0.1.1, ::1
+2015-06-02T17:20:51.328899761 20.367726s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-06-02T17:20:51.328902277 20.367729s notice: Server ready, "idb_acer_rsg" 910291b8-7181-4c2e-b230-d2c0adbed3aa
+2015-06-04T12:12:38.657484142 69479.088755s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2015-06-04T12:12:38.676269489 69479.107541s notice: Shutting down client connections...
+2015-06-04T12:12:38.683593440 69479.114864s notice: All client connections closed.
+2015-06-04T12:12:38.683599156 69479.114869s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-06-04T12:12:38.913486501 69479.344758s notice: Storage engine shut down.
