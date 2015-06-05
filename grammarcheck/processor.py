@@ -13,9 +13,15 @@ class Processor:
         pass
    
     def analyze_comments_from_db(self,pipe):
+        r.connect('localhost', 28015).repl()
 #####################Delete the following patch once all of the comments are received and processed.#####################
-        comments_patch=open('comments_patch','w')
-        #comments_patch=open('comments_patch','r')
+        try:
+            r.db_create('lagrammar').run()
+        except RqlRuntimeError:
+            try:
+                r.db('lagrammar').table_create('raw_comments').run()
+            except RqlRuntimeError:
+                print("The table raw_comments aready exists")
 ########################################################################################################################
         dict_of_comments_by_users={}
         spelling_mistake_rule_id='MORFOLOGIK_RULE_EN'       
@@ -34,10 +40,11 @@ class Processor:
         tool_for_replace_errors=language_check.LanguageTool('en-US')        
         page=0
         comments_per_page=50
-        while True:
+        cursors=r.db('lagrammar').table('raw_comments').run()
+        if True:
             page+=1
-            if(page==2):
-                break
+#            if(page==1):
+#                break
             self.buffer = io.BytesIO()
             c = pycurl.Curl()
             c.setopt(c.URL, 'http://learnapt.informationworks.in/api/grammar_check/comments?per_page='+str(comments_per_page)+'&page='+str(page))
@@ -48,11 +55,11 @@ class Processor:
             self.body = self.buffer.getvalue()
             comments_details=json.loads(self.body.decode('UTF-8'))['comments']
             print("Got "+str(comments_per_page) + " comments for the page "+str(page) )
-            if(len(comments_details)==0):
-                break
-            for comment_details in comments_details:
-                if 'Great movie!' ==  comment_details['content']:
-                    print(page)
+#            if(len(comments_details)==0):
+#                break
+            for comment_details in cursors:
+                if(comment_details['id']%1000==0):
+                    print(str(comment_details['id']))
                 if comment_details['content'] is None or str(comment_details['content']).strip() == '' :
                     continue
                 if comment_details['user_id'] not in dict_of_comments_by_users.keys():
@@ -60,12 +67,14 @@ class Processor:
                 if comment_details['commentable_id'] not in dict_of_comments_by_users[comment_details['user_id']].keys():
                     dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']]=[]
                 dict_of_comments_by_users[comment_details['user_id']][comment_details['commentable_id']].append({'id':comment_details['id'], 'data':comment_details['content'].strip(),'datetime':comment_details['created_at'],'commentable_type':comment_details['commentable_type']})
-            comments_patch.write(self.body.decode('UTF-8'))
-        comments_patch.flush()
-        comments_patch.close()
+                try:
+                    r.db('lagrammar').table('raw_comments').insert(comment_details).run()
+                except:
+                    print('Not able to insert the raw comment details. Is it important? ')
 #        dict_of_comments_by_users={1:{1:[{'id':'1','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30', 'commentable_type':'Item'},{'id':'2','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30','commentable_type':'Item'}, {'id':'3','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30','commentable_type':'Item'}]},2:{2:[{'id':'1','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30', 'commentable_type':'Item'}]}}
 # Creating and/or updating the lagrammar database and the comments table in rethinkdb.
-        r.connect('localhost', 28015).repl()
+
+
         tool=language_check.LanguageTool('en-GB')
         try:
             r.db_create('lagrammar').run()
@@ -173,6 +182,9 @@ class Processor:
                                     if token_with_error in gib_detect_tokens:
                                         comment['type']='gibberish'
                                         comment['gibberish_details']=gib_detect_results
+                                    else:
+                                        comment['type']='incorrect'
+                                        type_of_comment='incorrect'    
                                     to_continue=False
                                     break
                             if to_continue==True:
