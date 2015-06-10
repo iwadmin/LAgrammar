@@ -7,6 +7,7 @@ from plagiarismChecker import PlagiarismChecker
 from datetime import datetime
 import pycurl
 from main import PScripts
+import traceback
 class Processor:
 	
     def __init__(self):
@@ -40,8 +41,8 @@ class Processor:
         tool_for_replace_errors=language_check.LanguageTool('en-US')        
         page=0
         comments_per_page=50
-        cursors=r.db('lagrammar').table('raw_comments').run()
-        if True:
+        #cursors=r.db('lagrammar').table('analyzed_comments').filter({'type':'plagiarised'}).eq_join('comment_id',r.db('lagrammar').table('raw_comments')).run()#r.db('lagrammar').table('raw_comments').filter({'type':'plagiarised'}).run()
+        while True:
             page+=1
 #            if(page==1):
 #                break
@@ -55,11 +56,13 @@ class Processor:
             self.body = self.buffer.getvalue()
             comments_details=json.loads(self.body.decode('UTF-8'))['comments']
             print("Got "+str(comments_per_page) + " comments for the page "+str(page) )
-#            if(len(comments_details)==0):
-#                break
-            for comment_details in cursors:
-                if(comment_details['id']%1000==0):
-                    print(str(comment_details['id']))
+            if(len(comments_details)==0):
+                break
+#            counts=0
+            for comment_details in comments_details:
+#                counts=counts+1
+#                if counts>10:
+#                    break
                 if comment_details['content'] is None or str(comment_details['content']).strip() == '' :
                     continue
                 if comment_details['user_id'] not in dict_of_comments_by_users.keys():
@@ -70,6 +73,7 @@ class Processor:
                 try:
                     r.db('lagrammar').table('raw_comments').insert(comment_details).run()
                 except:
+                    traceback.print_stack()
                     print('Not able to insert the raw comment details. Is it important? ')
 #        dict_of_comments_by_users={1:{1:[{'id':'1','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30', 'commentable_type':'Item'},{'id':'2','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30','commentable_type':'Item'}, {'id':'3','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30','commentable_type':'Item'}]},2:{2:[{'id':'1','data':'hi','datetime':'2014-12-05T17:04:31.813+05:30', 'commentable_type':'Item'}]}}
 # Creating and/or updating the lagrammar database and the comments table in rethinkdb.
@@ -108,14 +112,14 @@ class Processor:
                     comment_dict['spos']=[]
                     comment_dict['epos']=[]
                     comment_dict['suggestions']=[]
-                    print('The comment is:'+comment['data'])
+                    print('The comment is: '+comment['data'])
 
                     # Next we check whether the comment is gibberish.
                     gib_detect_tokens=[]
                     gib_detect_results=gib_detect.check(comment['data'])
                     if gib_detect_results is not None:
                         type_of_comment='gibberish'
-                        print('The comment is '+comment['data'] +' a gibberish one.')
+                        print('The comment '+comment['data'] +' is a gibberish one.')
                         for result in gib_detect_results:
                             gib_detect_tokens.append(result['token'])
 
@@ -132,7 +136,7 @@ class Processor:
                                     comment_dict['type']='repetition'
                                     type_of_comment='repetition'
                                 break
-                        if type_of_comment!='copied' and type_of_comment!='repetition':
+                        if type_of_comment!='copied' and type_of_comment!='repetition' and len(comment['data'].strip()) > 140: # Constrain the character size of the comment to be greater than 140.
                             try:#Check for plagiarism against the sources from the internet.
                                 plagiarism_results=PScripts.main(comment['data'],'po.txt') 
                                 if len(plagiarism_results.keys())>0:
@@ -155,18 +159,19 @@ class Processor:
                     #analysis={'rule_id':[],'category':[],'msg':[],'spos':[],'epos':[],'suggestions':[]}
 # Special handling for comments which aren't found to be having an error
                     if len(matches)==0:
-                        comment_dict['type']='good'
+                        if type_of_comment!='plagiarised' and type_of_comment!='repetition' and type_of_comment!='copied':
+                            comment_dict['type']='good'
                         dict_of_items[item][user].append(comment['data'])
                         r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()                        
                         continue
                     else:
-                        if type_of_comment is not None:
+                        if type_of_comment is not None and type_of_comment != 'gibberish':
                             comment_dict['type']=type_of_comment
                         else:
                             comment_dict['type']='incorrect'
                     for match in matches:
 # This check is to ensure that words which are misspelled as per exactly one of British and American english dictionaries, and not as per the other, are not to be shown to be as if they are misspelled. Only if there is a spelling mistake as per both the dictionaries, should it consider as a spelling mistake.
-                        token_with_error=comment['data'][match.fromx:match.tox+1]
+                        token_with_error=comment['data'][match.fromx:match.tox]
                         if match.ruleId == spelling_mistake_rule_id+'_GB':
                             count_retries=0
                             while count_retries<2:
@@ -180,11 +185,9 @@ class Processor:
                             for match_for_replace in matches_for_replace:
                                 if match_for_replace.ruleId==spelling_mistake_rule_id+'_US':
                                     if token_with_error in gib_detect_tokens:
-                                        comment['type']='gibberish'
-                                        comment['gibberish_details']=gib_detect_results
-                                    else:
-                                        comment['type']='incorrect'
-                                        type_of_comment='incorrect'    
+                                        comment_dict['type']='gibberish'
+                                        comment_dict['gibberish_details']=gib_detect_results   
+                                        type_of_comment='gibberish'
                                     to_continue=False
                                     break
                             if to_continue==True:
@@ -318,32 +321,3 @@ class Processor:
                 r.db('lagrammar').table('analyzed_comments').insert(comment_dict).run()
 
 
-
-    @staticmethod
-    def get_analysis():
-        r.connect('localhost', 28015).repl()        
-#        allcomments=r.db('lagrammar').table('comments').run()
-        allcomments=r.db('lagrammar').table('analyzed_comments').filter({'comment':{'type':'plagiarised'}}).run()
-#        allcomments=r.db('lagrammar').table('comments').filter({'comment':{'analysis':{'category':['Grammar']}}}).run()
-
-        i=0
-        for comment in allcomments:
-            i+=1
-            if i>100:
-                break
-            print(json.dumps(comment,indent=4,sort_keys=True))
-
-            
-    @staticmethod
-    def get_analysis():
-        r.connect('localhost', 28015).repl()        
-#        allcomments=r.db('lagrammar').table('comments').run()
-        allcomments=r.db('lagrammar').table('analyzed_comments').filter({'comment':{'type':'plagiarised'}}).run()
-#        allcomments=r.db('lagrammar').table('comments').filter({'comment':{'analysis':{'category':['Grammar']}}}).run()
-
-        i=0
-        for comment in allcomments:
-            i+=1
-            if i>100:
-                break
-            print(json.dumps(comment,indent=4,sort_keys=True))
